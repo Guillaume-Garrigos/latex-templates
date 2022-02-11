@@ -1,0 +1,311 @@
+
+%%% GLOBAL AESTHETIC 
+\usepackage{\load/colors}
+\colorfirst{blue} % main color of the document
+\usepackage[english,french]{babel}
+\frenchsetup{StandardLayout=true} % prevents babel to mess with lists and layout
+% use \selectlanguage{english if you wanna force the english mode} 
+
+
+% PROJECT STRUCTURE
+\newcommand{\contents}{.}
+\newcommand{\commands}{commands}
+
+% DOCUMENT STYLE
+\usepackage{geometry}
+\geometry{hmargin = 2.5cm,
+		  vmargin = 4.5cm}
+\linespread{1.025}
+\pagestyle{headings} %plain, empty, headings
+
+
+% LINKS
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=\@colorfirst,
+    filecolor=\@colorfirst,      
+    urlcolor=\@colorfirst,
+}
+            
+% Table of contents
+\setcounter{secnumdepth}{3} % subsubsections numbered ..
+\setcounter{tocdepth}{2} % .. but not in toc
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\thechapter.\Roman{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\roman{subsubsection})}
+
+% BASIC LANGUAGE AND FONTS
+\usepackage{amsfonts,amsmath,amsthm,amssymb}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo} % Specific font
+
+% STLYES FOR THEOREMS ETC.
+%\theoremstyle{plain} % italic style
+%\newtheorem{theorem}{Théorème}[section]
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollaire}
+%\newtheorem{lemma}[theorem]{Lemme}
+%
+%\theoremstyle{definition} % normal style
+%\newtheorem{definition}[theorem]{Définition}
+%\newtheorem{remark}[theorem]{Remarque}
+%\newtheorem{example}[theorem]{Exemple}
+%\newtheorem{exercise}[theorem]{Exercice}
+
+% OPTIONAL PACKAGES
+\usepackage{graphicx}
+\usepackage{float} % for [H] option
+\renewcommand{\qedsymbol}{\color{\@colorfirst}$\blacksquare$} % End of theorems
+\usepackage{ulem} % barrer texte
+
+
+
+
+
+
+% LISTS
+\usepackage{enumitem} % unlock resume, \begin{enumerate}[label=\alph*], and other stuff
+\newcommand{\itemsquare}{\textcolor{\@colorfirst}{\raisebox{.2ex}{\rule{.8ex}{.8ex}}}} % This for having squares in itemize level 3
+
+\setlist[enumerate,1]{
+	label={\color{\@colorfirst}\arabic*)},%
+	ref=\roman*),%
+	leftmargin=1.5em
+	}
+\setlist[enumerate,2]{
+	label={\color{\@colorfirst}\alph*)},
+	ref=\arabic{enumi}.\alph*),
+	leftmargin=1.5em
+	}
+\setlist[enumerate,3]{
+	label={\color{\@colorfirst}\roman*)},
+	ref=\arabic{enumi}.\alph{enumii}-\roman*),
+	leftmargin=1.5em
+	}
+	
+\setlist[itemize,1]{
+	label={\color{\@colorfirst}$\bullet$},%
+	ref=\roman*),%
+	leftmargin=1.5em
+	}
+\setlist[itemize,2]{
+	label={\color{\@colorfirst}$\circ$},
+	leftmargin=1.5em
+	}
+\setlist[itemize,3]{
+	label={\color{\@colorfirst}\itemsquare},
+	leftmargin=1.5em
+	}
+% just in case we use custom labels with [label=\roman*)]
+\let\oldroman\roman
+\renewcommand{\roman}[1]{\color{\@colorfirst}\oldroman{#1}}
+\let\oldalph\alph
+\renewcommand{\alph}[1]{\color{\@colorfirst}\oldalph{#1}}
+
+% CUSTOM AND COLOURED ENVIRONMENTS
+% We add some color to the environments
+% Stolent from https://tex.stackexchange.com/questions/123420/using-amsthm-changing-theorem-options-and-break-line?rq=1
+\usepackage{xparse}
+\newtheoremstyle{theoremcolored}% name
+  {1em}%Space above ex: \topsep, 1em,
+  {1em}%Space below
+  {\itshape}%Body font. ex: \itshape for italic
+  {0pt}%Indent amount
+  {\color{\@colorfirst} \bfseries}% Theorem head font
+  {.}%Punctuation after theorem head
+  {0.5em}%Space after theorem head 2. ex: \newline ; 1.5em
+  {}%Theorem head spec (can be left empty, meaning ‘normal’)
+\newtheoremstyle{definitioncolored}% name
+  {1em}%Space above
+  {1em}%Space below
+  {}%Body font. ex: \itshape for italic
+  {0pt}%Indent amount
+  {\color{\@colorfirst} \bfseries}% Theorem head font
+  {.}%Punctuation after theorem head
+  {0.5em}%Space after theorem head 2. ex: \newline, 1.5em
+  {}%Theorem head spec (can be left empty, meaning ‘normal’)
+
+% ENVIRONMENTS DEFINITION
+\theoremstyle{theoremcolored}
+\newtheorem{theorem}{Théorème}[chapter] %we want no sections here
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{lemma}[theorem]{Lemme}
+
+\theoremstyle{definitioncolored} % normal style
+\newtheorem{definition}[theorem]{Définition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{exercise}[theorem]{Exercice}
+
+% In definitions we want bold to turn colored and scshape
+% change bold in environments : https://tex.stackexchange.com/questions/315058/change-the-behaviour-of-emph-per-environment
+\usepackage{etoolbox}
+\AtBeginEnvironment{definition}{
+	\renewcommand{\textbf}[1]{%
+  		{\scshape\bfseries\color{\@colorfirst}#1}%
+		}
+	}
+
+
+
+
+% OPTIONAL ENVIRONMENTS
+% (can be hidden with \***true before document)
+\usepackage{comment}
+
+\newif\ifcorrection
+\AtBeginDocument{
+\ifcorrection
+  \newenvironment{correction}{\color{blue_dark}\noindent\textbf{Correction:}}{}
+\else
+  \excludecomment{correction}
+\fi
+}
+
+\newif\ifperso
+\AtBeginDocument{
+\ifperso
+  \newcommand{\guillaume}[1]{{\color{orange}#1}}
+\else
+  \newcommand{\guillaume}[1]{}
+\fi
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%% TITLE / HEADER / FOOTER
+\usepackage{graphicx}
+\usepackage[export]{adjustbox} % add the options left/right to \includegraphics
+\usepackage[useregional]{datetime2} % For displaying the date
+\usepackage{fancyhdr} % For managing the headers/footers
+\fancyhf{}% Clear all headers/footers
+\renewcommand{\headrulewidth}{0pt}% No header rule
+\renewcommand{\footrulewidth}{0pt}% No footer rule
+\AtBeginDocument{
+	\thispagestyle{fancy}% Activate Footer on first page only
+}
+
+
+
+% First some commands to harvest the data, with default values
+\newcommand{\@logo}{\load/images/UP_white} % default value
+\newcommand{\logo}[1]{\def\@logo{#1}}
+
+
+\newcommand{\@year}{2021-2022}
+\renewcommand{\year}[1]{\renewcommand{\@year}{#1}}
+
+\renewcommand{\@author}{Guillaume Garrigos}
+\renewcommand{\author}[1]{\def\@author{#1}}
+
+\newcommand{\@email}{garrigos@lpsm.paris}
+\newcommand{\email}[1]{\def\@email{#1}}
+
+\newcommand{\@promo}{}
+\newcommand{\promo}[1]{\def\@promo{#1}}
+
+\newcommand{\@course}{}
+\newcommand{\course}[1]{\def\@course{#1}}
+
+\renewcommand{\@title}{}
+\renewcommand{\title}[1]{\def\@title{#1}}
+
+\newcommand{\mynewcommand}[3]{%
+    \newcommand{#1}{%
+        \iflanguage{english}{#2}{%
+        \iflanguage{french}{#3}{}
+        }%
+    }%
+}
+
+\mynewcommand{\update}{Last update on \today}{Mis à jour le \today}
+
+\renewcommand{\@date}{\update}
+\renewcommand{\date}[1]{\def\@date{#1}}
+
+% Here is the command creating title, header and footer
+\renewcommand{\maketitle}{
+% The header, lifted up :
+\vspace*{-2.5cm}
+
+\noindent \hspace*{-1.5cm} \textit{\@promo} 
+\hfill 
+\textit{\@year} \hspace*{-1.5cm}
+
+\vspace*{2.5cm}
+
+% The title, with logo. Both separated in minipages. Surrounded by rules.
+
+\noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+
+\vspace*{1em}
+
+%\begin{minipage}{0.1\textwidth}
+%\begin{center}
+%\includegraphics[width=\textwidth, left]{\@logo}
+%\end{center}
+%\end{minipage}
+%\begin{minipage}{0.9\textwidth}
+%\begin{center}
+%{\color{\@colorfirst}
+%\large \textsc{\textbf{\@course}}\\
+%\rule{2cm}{1pt} \vspace*{0.5em} \\
+%\textsc{\textbf{\@title}}
+%}
+%\end{center}
+%\end{minipage}
+
+\begin{center}
+{\color{\@colorfirst}
+\Huge {\textbf{\@course}}
+}
+\end{center}
+
+\vspace*{0.25em}
+
+\noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+
+\vspace*{3em}
+
+\begin{center}
+\large \@author
+\end{center}
+
+\vspace*{2em}
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/titlepage.png}
+\end{center}
+
+\vspace*{3em}
+
+\hspace*{2em}
+\includegraphics[width=0.3\textwidth]{images/titlepage2.png}
+\hspace*{4em}
+\includegraphics[width=0.4\textwidth]{images/kkt_illu.png}
+
+% Footer
+\fancyfoot[L]{\small
+\vspace*{1.5cm} \hspace*{-1.5cm} \textit{Contact:  \href{mailto:\@email}{\@email}}  
+}%
+\fancyfoot[R]{\small
+\vspace*{1.5cm} \textit{\color{gray}\@date} \hspace*{-1.5cm}
+}%
+}% End of \MAKETITLE
+
+
+

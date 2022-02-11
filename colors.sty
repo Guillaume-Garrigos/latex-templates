@@ -1,0 +1,36 @@
+
+\usepackage{xcolor}
+
+% we will use them everywhere
+\definecolor{orange}{HTML}{ef6c00}
+\definecolor{green}{HTML}{4db6ac}%009966%00ef9c
+\definecolor{green_gray}{HTML}{4db6ac}
+\definecolor{blue}{HTML}{0083ef}%64abd5 
+\definecolor{blue_gray}{HTML}{ecf3fa}
+\definecolor{blue_dark}{HTML}{00437A}
+\definecolor{red_dark}{HTML}{c00000}
+\definecolor{red}{HTML}{ff0000}
+\definecolor{red_gray}{HTML}{ffdcdc}
+\definecolor{bordeaux}{HTML}{8A1639}
+
+% Commands to define main colors in a document (titles, etc)
+\newcommand{\@colorfirst}{black}
+\newcommand{\colorfirst}[1]{\def\@colorfirst{#1}}
+\newcommand{\@colorsecond}{black}
+\newcommand{\colorsecond}[1]{\def\@colorsecond{#1}}
+\newcommand{\@colorthird}{black}
+\newcommand{\colorthird}[1]{\def\@colorthird{#1}}
+
+% We add an alias for \color which is more convenient
+% Now it is \col[colorname]{text}
+% Instead of {\color{colorname}text}
+\newcommand{\col}[2][\@colorfirst]{{\color{#1}#2}}
+
+
+% Technichal variable names we need in various templates. Most of the time not used.
+% vinassan.sty:
+\newcommand{\@bgcolorpercentage}{10}
+\newcommand{\bgcolorpercentage}[1]{\def\@bgcolorpercentage{#1}}
+
+
+

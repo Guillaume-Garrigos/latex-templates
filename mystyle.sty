@@ -1,0 +1,200 @@
+%% Definitions by Guillaume Garrigos
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Personal Symbols %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Letters : MathBB
+\renewcommand{\AA}{\mathbb{A}}
+\newcommand{\BB}{\mathbb{B}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\II}{\mathbb{I}}
+\newcommand{\JJ}{\mathbb{J}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\LL}{\mathbb{L}}
+\newcommand{\MM}{\mathbb{M}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\OO}{\mathbb{O}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\renewcommand{\SS}{\mathbb{S}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\UU}{\mathbb{U}}
+\newcommand{\VV}{\mathbb{V}}
+\newcommand{\WW}{\mathbb{W}}
+\newcommand{\XX}{\mathbb{X}}
+\newcommand{\YY}{\mathbb{Y}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+%%%% Special shortcuts
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+%\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathbb{B}}
+
+%%%%% Letters : mathCAL
+\newcommand{\Aa}{\mathcal{A}}
+\newcommand{\Bb}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dd}{\mathcal{D}}
+\newcommand{\Ee}{\mathcal{E}}
+\newcommand{\Ff}{\mathcal{F}}
+\newcommand{\Gg}{\mathcal{G}}
+\newcommand{\Hh}{\mathcal{H}}
+\newcommand{\Ii}{\mathcal{I}}
+\newcommand{\Jj}{\mathcal{J}}
+\newcommand{\Kk}{\mathcal{K}}
+\newcommand{\Ll}{\mathcal{L}}
+\newcommand{\Mm}{\mathcal{M}}
+\newcommand{\Nn}{\mathcal{N}}
+\newcommand{\Oo}{\mathcal{O}}
+\newcommand{\Pp}{\mathcal{P}}
+\newcommand{\Qq}{\mathcal{Q}}
+\newcommand{\Rr}{\mathcal{R}}
+\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\Tt}{\mathcal{T}}
+\newcommand{\Uu}{\mathcal{U}}
+\newcommand{\Vv}{\mathcal{V}}
+\newcommand{\Ww}{\mathcal{W}}
+\newcommand{\Xx}{\mathcal{X}}
+\newcommand{\Yy}{\mathcal{Y}}
+\newcommand{\Zz}{\mathcal{Z}}
+
+%%%% Letters : Greek, special characters
+%% More details on: http://tex.stackexchange.com/questions/125180/how-do-i-make-this-p-variant-from-the-font-eurm10 OR ftp://ftp.ams.org/pub/tex/doc/amsfonts/amsfndoc.pdf
+\newcommand{\eps}{\varepsilon}
+\newcommand{\w}{\omega}
+\newcommand{\Lmax}{L_{{\scriptscriptstyle max}}}
+
+%%%% Inequality fonts
+%%We go in mathabx package to pick exactly the fonts we want
+%%We take only what we want since a lot of symbols would be changed
+%%Stuff can be found in MIKTEX\tex\latex\nameofthepackage
+%% see thesis for more details
+
+%% Subpackage 'matha' for nice inequalities
+\DeclareFontFamily{U}{matha}{\hyphenchar\font45}
+\DeclareFontShape{U}{matha}{m}{n}{<5> <6> <7> <8> <9> <10> gen * matha <10.95> matha10 <12> <14.4> <17.28> <20.74> <24.88> matha12}{}
+\DeclareSymbolFont{matha}{U}{matha}{m}{n}
+\DeclareMathSymbol{\leq}         {3}{matha}{"A4}
+\DeclareMathSymbol{\geq}         {3}{matha}{"A5}
+\DeclareMathSymbol{\nleq}        {3}{matha}{"A6}
+\DeclareMathSymbol{\ngeq}        {3}{matha}{"A7}
+
+%% Subpackage 'mathb' for nice order relations
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{<5> <6> <7> <8> <9> <10> gen * mathb <10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12}{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+\DeclareMathSymbol{\prec}        {3}{mathb}{"A0}
+\DeclareMathSymbol{\preceq}      {3}{mathb}{"A8}
+\DeclareMathSymbol{\precneq}     {3}{mathb}{"AC}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Personal Operators %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Words into maths
+%%%% Note: using \DeclareMathOperator does the same that \newcommand{\blablah}{\mbox{\rm blablah}} mith a nice space management
+
+\DeclareMathOperator{\act}{active}
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\asupp}{asupp}
+\DeclareMathOperator{\bd}{bd}
+	\DeclareMathOperator{\rbd}{rbd}
+	\DeclareMathOperator{\qrbd}{qrbd}
+\DeclareMathOperator{\cl}{cl}
+	\DeclareMathOperator{\wcl}{cl_w}
+	\DeclareMathOperator{\wscl}{cl_{w^*}}
+\DeclareMathOperator{\co}{co}
+	\DeclareMathOperator{\clco}{\overline{co}}
+	\DeclareMathOperator{\wclco}{\overline{co}^w}
+	\DeclareMathOperator{\wsclco}{\overline{co}^{*}}
+	\DeclareMathOperator{\coo}{coo}
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\cone}{cone}
+	\DeclareMathOperator{\clcone}{\overline{cone}}
+\DeclareMathOperator{\crit}{crit}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\Gr}{Gr}
+\let\Im\relax \DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\inte}{int}
+	\DeclareMathOperator{\ri}{ri}
+	\DeclareMathOperator{\rint}{rint}
+	\DeclareMathOperator{\srint}{srint}
+	\DeclareMathOperator{\sri}{sri}
+	\DeclareMathOperator{\qrint}{qrint}
+	\DeclareMathOperator{\qri}{qri}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\lin}{lin}
+\DeclareMathOperator{\Lip}{Lip}
+\DeclareMathOperator{\minimiser}{minimiser}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\soft}{soft}
+%\DeclareMathOperator{\sp}{sp}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\supp}{supp}
+	\DeclareMathOperator{\esupp}{esupp}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Vect}{Vect}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Others Definitions %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Derivative stuff
+\renewcommand{\d}{{\rm d}}
+%\newcommand{\D}{{\rm D}}
+\newcommand{\dt}{{\rm d}t}
+%\newcommand{\dx}{{\rm d}x}
+
+%%%% Empty spaces
+\newcommand{\quadd}{\quad \quad}
+\newcommand{\quaddd}{\quad \quad \quad}
+\newcommand{\quadddd}{\quad \quad \quad \quad}
+
+\newcommand{\Vfill}{\vspace*{\textheight}}
+
+%%%% Operator norm
+\DeclareFontEncoding{FMS}{}{}
+\DeclareFontSubstitution{FMS}{futm}{m}{n}
+\DeclareFontEncoding{FMX}{}{}
+\DeclareFontSubstitution{FMX}{futm}{m}{n}
+\DeclareSymbolFont{fouriersymbols}{FMS}{futm}{m}{n}
+\DeclareSymbolFont{fourierlargesymbols}{FMX}{futm}{m}{n}
+\DeclareMathDelimiter{\VERT}{\mathord}{fouriersymbols}{152}{fourierlargesymbols}{147}
+
+%%%% Long arrows
+\newcommand{\longhookrightarrow}{} 
+\DeclareRobustCommand{\longhookrightarrow}{\lhook\joinrel\relbar\joinrel\rightarrow}
+\newcommand{\longlongrightarrow}{} 
+\DeclareRobustCommand{\longlongrightarrow}{\relbar\joinrel\longrightarrow}
+
+
+%% Guillemets
+\newcommand{\eg}[1]{\og{}#1\fg{}} % entre guillemets
+%%
+%% Si tu préfères les autres styles de guillemets, remplace par la ligne suivante
+%%
+% \newcommand{\eg}[1]{``{#1}''}
+%%
+%%

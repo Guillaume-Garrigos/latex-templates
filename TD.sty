@@ -1,0 +1,250 @@
+\@ifundefined{load} 
+	{  \newcommand{\load}{D:/latex}  }
+
+%% LANGUAGE STUFF
+\@ifpackageloaded{babel}{%
+	\frenchsetup{StandardLayout}% prevents babel to mess with lists and layout
+	}{%
+	\usepackage[english]{babel} %default value
+	}
+\newcommand{\dico}[2]{%
+    \iflanguage{english}{#1}{%
+    \iflanguage{french}{#2}{}%
+    }%
+}
+%\usepackage[english,french]{babel}
+%\frenchsetup{StandardLayout=true} % prevents babel to mess with lists and layout
+% use \selectlanguage{english if you wanna force the english mode} 
+
+%%% GLOBAL AESTHETIC 
+\usepackage{\load/colors}
+\colorfirst{bordeaux} % main color of the document
+
+
+% PAGE LAYOUT
+\usepackage{mathpazo}  % fonts
+\linespread{1.1}
+\usepackage{geometry}
+\geometry{hmargin = 6em,
+		  vmargin = 8em}
+\pagestyle{empty} %plain, empty, headings
+\renewcommand{\thepage}{} % no page numbers anywhere
+
+% LINKS
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=\@colorfirst,
+    filecolor=\@colorfirst,      
+    urlcolor=\@colorfirst,
+}
+
+
+
+%%% ENVIRONMENTS AND STRUCTURE
+
+% CHAPTERS, SECTIONS, ETC
+\usepackage{titlesec}% http://tug.ctan.org/tex-archive/macros/latex/contrib/titlesec/titlesec.pdf
+\titleformat{\section}%
+	{\scshape \large \filcenter}% formatting the text : \filcenter for centering, \Large for size, \bfseries, \scshape etc
+	{{\color{\@colorfirst}\roman{section}.}}% label, with \thesection
+	{0.25em}% horizontal separation between label and title
+	{\color{\@colorfirst}}% commands to run before the title
+	[\vspace*{0.5em}]% commands after the title
+
+% LISTS
+\usepackage{enumitem} % unlock resume and other stuff
+\newcommand{\itemsquare}{\textcolor{\@colorfirst}{\raisebox{.2ex}{\rule{.8ex}{.8ex}}}} % This for having squares in itemize level 3
+
+\setlist[enumerate,1]{
+	label={\color{\@colorfirst}\arabic*)},%
+	ref=\roman*),%
+	leftmargin=*
+	}
+\setlist[enumerate,2]{
+	label={\color{\@colorfirst}\alph*)},
+	ref=\arabic{enumi}.\alph*),
+	leftmargin=1.5em
+	}
+\setlist[enumerate,3]{
+	label={\color{\@colorfirst}\roman*)},
+	ref=\arabic{enumi}.\alph{enumii}-\roman*)
+	}
+
+\renewcommand\labelitemi{\color{\@colorfirst}$\bullet$}
+\renewcommand\labelitemii{\color{\@colorfirst}$\circ$}
+\renewcommand\labelitemiii{\color{\@colorfirst}\itemsquare}
+
+% CUSTOM AND COLOURED ENVIRONMENTS
+% We add some color to the environments
+% Stolent from https://tex.stackexchange.com/questions/123420/using-amsthm-changing-theorem-options-and-break-line?rq=1
+\usepackage{xparse}
+\newtheoremstyle{theoremcolored}% name
+  {1em}%Space above ex: \topsep, 1em,
+  {1em}%Space below
+  {\itshape}%Body font. ex: \itshape for italic
+  {0pt}%Indent amount
+  {\color{\@colorfirst} \bfseries}% Theorem head font
+  {.}%Punctuation after theorem head
+  {0.5em}%Space after theorem head 2. ex: \newline ; 1.5em
+  {}%Theorem head spec (can be left empty, meaning ‘normal’)
+\newtheoremstyle{definitioncolored}% name
+  {1em}%Space above
+  {1em}%Space below
+  {}%Body font. ex: \itshape for italic
+  {0pt}%Indent amount
+  {\color{\@colorfirst} \bfseries}% Theorem head font
+  {.}%Punctuation after theorem head
+  {0.5em}%Space after theorem head 2. ex: \newline, 1.5em
+  {}%Theorem head spec (can be left empty, meaning ‘normal’)
+
+% ENVIRONMENTS DEFINITION
+\theoremstyle{theoremcolored}
+\newtheorem{theorem}{\dico{Theorem}{Théorème}}%[section] we want no sections here
+\newtheorem{proposition}{\dico{Proposition}{Proposition}}
+\newtheorem{corollary}{\dico{Corollary}{Corollaire}}
+\newtheorem{lemma}{\dico{Lemma}{Lemme}}
+
+\theoremstyle{definitioncolored} % normal style
+\newtheorem{definition}{\dico{Definition}{Définition}}
+\newtheorem{remark}{\dico{Remark}{Remarque}}
+\newtheorem{example}{\dico{Example}{Exemple}}
+\newtheorem{exercise}{\dico{Exercise}{Exercice}}
+
+
+
+% OPTIONAL ENVIRONMENTS
+% (can be hidden with \***true before document)
+\usepackage{comment}
+
+\newif\ifcorrection
+\AtBeginDocument{
+\ifcorrection
+  \newenvironment{correction}{\color{blue_dark}\noindent\textbf{Correction:}}{}
+\else
+  \excludecomment{correction}
+\fi
+}
+
+\newif\ifguillaume
+\AtBeginDocument{
+\ifguillaume
+  \newcommand{\guillaume}[1]{{\color{orange}#1}}
+\else
+  \newcommand{\guillaume}[1]{}
+\fi
+}
+
+
+%%% TITLE / HEADER / FOOTER
+\usepackage{graphicx}
+\usepackage[export]{adjustbox} % add the options left/right to \includegraphics
+\usepackage[useregional]{datetime2} % For displaying the date
+\usepackage{fancyhdr} % For managing the headers/footers
+\fancyhf{}% Clear all headers/footers
+\renewcommand{\headrulewidth}{0pt}% No header rule
+\renewcommand{\footrulewidth}{0pt}% No footer rule
+\AtBeginDocument{
+	\thispagestyle{fancy}% Activate Footer on first page only
+}
+
+
+% First some commands to harvest the data, with default values
+\newcommand{\@logo}{\load/images/UP_white} % default value
+\newcommand{\logo}[1]{\def\@logo{#1}}
+
+
+\newcommand{\@year}{2021-2022}
+\renewcommand{\year}[1]{\renewcommand{\@year}{#1}}
+
+\renewcommand{\@author}{Guillaume Garrigos}
+\renewcommand{\author}[1]{\def\@author{#1}}
+
+\newcommand{\@email}{}
+\renewcommand{\email}[1]{\def\@email{#1}}
+
+\newcommand{\@promo}{}
+\newcommand{\promo}[1]{\def\@promo{#1}}
+
+\newcommand{\@course}{}
+\newcommand{\course}[1]{\def\@course{#1}}
+
+\renewcommand{\@title}{}
+\renewcommand{\title}[1]{\def\@title{#1}}
+
+\newcommand{\mynewcommand}[3]{%
+    \newcommand{#1}{%
+        \iflanguage{english}{#2}{%
+        \iflanguage{french}{#3}{}
+        }%
+    }%
+}
+
+\mynewcommand{\update}{Last update on \today}{Mis à jour le \today}
+
+\renewcommand{\@date}{\update}
+\renewcommand{\date}[1]{\def\@date{#1}}
+
+% Here is the command creating title, header and footer
+\newif\iflogin
+\newif\ifexam % alias
+\AtBeginDocument{
+	\ifexam
+		\logintrue
+	\else
+		\loginfalse
+	\fi
+}
+\renewcommand{\maketitle}{
+% The header, lifted up :
+\vspace*{-6.5em}
+
+\noindent \hspace*{-4em} \textit{\@promo} 
+\hfill 
+\textit{\@year} \hspace*{-4em}
+
+\vspace*{1em}
+
+\iflogin%
+	\noindent \hspace*{-1.5cm} NOM: \hspace*{14em} Prénom: \hspace*{14em} N$^{\rm o}$ \'Etudiant$\cdot$e:%
+\else%
+	\phantom{\noindent \hspace*{-1.5cm} NOM: \hspace*{14em} Prénom: \hspace*{14em} N$^{\rm o}$ \'Etudiant$\cdot$e:}%
+\fi%
+
+\vspace*{1em}
+
+% The title, with logo. Both separated in minipages. Surrounded by rules.
+
+\noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+
+\vspace*{1em}
+
+\begin{minipage}{0.1\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth, left]{\@logo}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.9\textwidth}
+\begin{center}
+{\color{\@colorfirst}
+\large \textsc{\textbf{\@course}}\\
+\rule{2cm}{1pt} \vspace*{0.5em} \\
+\textsc{\textbf{\@title}}
+}
+\end{center}
+\end{minipage}
+
+\vspace*{1em}
+
+\noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+
+\vspace*{1em}
+
+% Footer
+\fancyfoot[L]{\small
+\vspace*{1.5cm} \hspace*{-1.5cm} \textit{Contact: \@author \  \href{mailto:\@email}{\@email}}  
+}%
+\fancyfoot[R]{\small
+\vspace*{1.5cm} \textit{\color{gray}\@date} \hspace*{-1.5cm}
+}%
+}% End of \MAKETITLE

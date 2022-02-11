@@ -1,0 +1,598 @@
+\@ifundefined{load} 
+	{  \newcommand{\load}{D:/latex}  }
+	
+%% LANGUAGE STUFF
+\@ifpackageloaded{babel}{%
+	%We do nothing
+	}{%
+	\usepackage[english]{babel} %default value
+	}
+\newcommand{\dico}[2]{%
+    \iflanguage{english}{#1}{%
+    \iflanguage{french}{#2}{}%
+    }%
+}
+
+%% BASIC LENGTH DEFINITIONS
+% Set the horizontal/vertical marginswithin within a frame
+% geometry package is already loaded in Beamer so we dont upload it
+\geometry{
+	hmargin=2.3em, 
+	vmargin=1em
+	}
+% How much should we indent horizontally with a new paragraph? I say 0 for slides, margins are already doing the job
+\setlength{\parindent}{0em}
+% How much space between paragraphs (= two line breaks). Default beamer is 0, I say 0.5em, like we had a blank line
+\setlength{\parskip}{0.5em}
+% How much space between lines? (=one line break or automatic lineabreak) Must be a number >1
+% It also (important) affects the space between items
+\usepackage{setspace}
+\setstretch{1.2}
+% Set the vertical spaces around equation, eqnarray environments
+\AtBeginDocument{%
+ \abovedisplayskip=0.5em
+ \abovedisplayshortskip=0.5em
+ \belowdisplayskip=0.5em
+ \belowdisplayshortskip=0.5em
+}
+% Set the horizontal space for an equation, in particular the equation numbers
+\newlength{\tagmarginsep} % Define the space after the tag of an equation
+\setlength{\tagmarginsep}{1em} % Set the space
+\everydisplay{\displayindent=\tagmarginsep \displaywidth=\dimexpr\linewidth-2\tagmarginsep}
+% Set the vertical spacing for items
+% CONFLICT
+%\usepackage{enumitem}
+%\setitemize{
+%	itemsep=1em, %vertical space added after each item in the list.
+%%	topsep=1em, % vertical space added above and below the list.
+%%	parsep=1em, % vertical space added after each paragraph in the list.
+%%	partopsep=1em % vertical space added above and below the list, but only if the list starts a new paragraph.
+%}
+
+
+
+%% COLORS
+\usepackage{\load/colors}
+\colorfirst{orange} % Title, Section, alertblock, textbf, emph
+\colorsecond{blue} % Title backgroud, block
+\colorthird{green} % exampleblock
+\bgcolorpercentage{10} % in blocks we use a shade of the dominant color. We want it to be clear enough so text is visible, so ~10% of the color is a good value
+
+
+% LINKS
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=\@colorfirst,
+    filecolor=\@colorfirst,      
+    urlcolor=\@colorfirst,
+}
+
+
+% Choice of the font (if xetex)
+\usepackage{ifxetex}
+\ifxetex
+	\usepackage{fontspec}
+	\newcommand\setbodyfont[1]{
+		\setmainfont{#1}
+		\setsansfont{#1}
+		\setmonofont{#1}
+	}
+	\setbodyfont{Segoe UI}
+	%\setbodyfont{Open Sans Regular}
+\fi
+
+
+% Font + colors
+% We define new macros to emphasize text with color
+\newcommand{\important}[2][\@colorfirst]{{\textbf{\color{#1}#2}}}
+\AtBeginDocument{% no idea who redefines this later 
+	\DeclareTextFontCommand{\textbf}{%
+		\bfseries\color{\@colorfirst}%
+		}
+	\DeclareTextFontCommand{\emph}{%
+		\em \color{\@colorfirst}%
+		}
+	}
+
+
+
+% change emph in environments : https://tex.stackexchange.com/questions/315058/change-the-behaviour-of-emph-per-environment
+% change emph in beamer https://tex.stackexchange.com/questions/311420/set-color-of-emph-in-beamer
+\usepackage{etoolbox}
+\AtBeginEnvironment{block}{
+	\renewcommand{\emph}[1]{%
+  		{\em\color{\@colorsecond}#1}%
+		}
+	\renewcommand{\textbf}[1]{%
+  		{\bfseries\color{\@colorsecond}#1}%
+		}
+	}
+\AtBeginEnvironment{exampleblock}{
+	\renewcommand{\emph}[1]{%
+  		{\em\color{\@colorthird}#1}%
+		}
+	\renewcommand{\textbf}[1]{%
+  		{\bfseries\color{\@colorthird}#1}%
+		}
+	}
+\AtBeginEnvironment{alertblock}{
+	\renewcommand{\emph}[1]{%
+  		{\em\color{\@colorfirst}#1}%
+		}
+	\renewcommand{\textbf}[1]{%
+  		{\bfseries\color{\@colorfirst}#1}%
+		}
+	}
+
+
+
+
+
+%% Bullet shapes
+% All of them
+\setbeamertemplate{itemize items}[circle]
+% Level one
+\defbeamertemplate{itemize item}{fullbullet}{\usebeamerfont*{itemize item}\raise0.5pt\hbox{\large $\bullet$}}
+\setbeamertemplate{itemize item}[fullbullet]
+% Level two
+\defbeamertemplate{itemize subitem}{emptybullet}{\usebeamerfont*{itemize item}\raise0.5pt\hbox{\large $\circ$}}
+\setbeamertemplate{itemize subitem}[emptybullet]
+\setbeamertemplate{itemize/enumerate subbody begin}{\normalsize}
+% Level three
+\setbeamertemplate{itemize subsubitem}[square]
+\setbeamertemplate{itemize/enumerate subsubbody begin}{\normalsize}
+
+
+% Colors for enumerate itemize items
+\setbeamercolor{local structure}{fg=\@colorfirst}
+% The title
+\setbeamercolor{title}{
+	fg=\@colorfirst, 
+	bg=\@colorsecond!15
+	}
+\ifxetex
+	\setbeamerfont{title}{
+		family=\fontspec{PT Sans Narrow Bold},
+		size=\Huge
+		}
+	\setbeamerfont{subtitle}{
+		size=\Large
+		}
+\else
+	\setbeamerfont{title}{
+		size=\LARGE
+		}
+	\setbeamerfont{subtitle}{
+		size=\large
+		}
+\fi
+% The frame: footer
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{footline}{fg=gray}
+\setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=2.5em,leftskip=1em,rightskip=1em]{page footer}%
+        \usebeamerfont{title in head/foot}%
+            \insertsection ~  \insertsubsection ~ \insertsubsubsection \hfill
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+% A command to control the footer or no
+\newcommand{\nofooter}{\setbeamertemplate{footline}{}}
+
+
+
+
+
+% Frame title
+\setbeamercolor{frametitle}{fg=\@colorfirst,bg=white}
+\ifxetex
+	\setbeamerfont{frametitle}{
+		family=\fontspec{PT Sans Narrow Bold},
+		size=\huge
+		}
+\else
+	\setbeamerfont{frametitle}{
+		size=\LARGE
+		}
+\fi
+
+\setbeamertemplate{frametitle}[default][left,leftskip=0.25em] % https://tex.stackexchange.com/questions/273551/move-frametitle-horizontally
+\addtobeamertemplate{frametitle}{\vspace*{-0.75em}}{\vspace*{-0.25em}} % First value is a space put before the title. The second is put after.
+
+% Logo in the title
+\newcommand{\@logo}{\load/images/UP_white} % default value
+\renewcommand{\logo}[1]{\def\@logo{#1}}
+\titlegraphic{
+	\hfill 		
+	\includegraphics[height=5em]{\@logo}
+	\hspace*{-2em}
+	\vspace*{-1em}
+	}
+
+
+
+
+
+% Block colors
+\setbeamercolor{block title}{fg=white, bg=\@colorsecond}
+\setbeamerfont{block title}{size=\normalsize}
+\setbeamercolor{block body}{fg=black, bg=\@colorsecond!\@bgcolorpercentage}
+\setbeamercolor{block title example}{fg=white, bg=\@colorthird}
+\setbeamerfont{block title example}{size=\normalsize}
+\setbeamercolor{block body example}{fg=black, bg=\@colorthird!\@bgcolorpercentage}
+\setbeamercolor{block title alerted}{fg=white, bg=\@colorfirst}
+\setbeamerfont{block title alerted}{size=\normalsize}
+\setbeamercolor{block body alerted}{fg=black, bg=\@colorfirst!\@bgcolorpercentage}
+
+% This allows to obtain the width of a text so the box has the same width.
+% The \getwidth \gotwidth couple
+\newcommand*{\getwidth}[1]{%
+	\let\gotwidth\relax
+ 	\newlength{\gotwidth}
+  	\settowidth{\gotwidth}{#1}
+}
+
+
+
+
+
+
+
+
+
+
+
+% Many things happening here
+% First we get the width of the title and add 1em because we want 0.5em left and right
+% How to kill the title if empty?
+\setbeamertemplate{block begin}{
+\vspace*{1em}
+\getwidth{\insertblocktitle}
+	\begin{beamercolorbox}[ht=1.25em,dp=0.5em,leftskip=0.5em,%
+	wd=\dimexpr\gotwidth + 1em\relax]{block title}%
+    	\usebeamerfont*{block title}%
+    	\insertblocktitle
+	\end{beamercolorbox}%
+	\usebeamerfont{block body}%
+	\vspace*{-1pt}%weird nasty space
+	\begin{beamercolorbox}[leftskip=0.5em,sep=0.5em]{block body}%
+  }
+\setbeamertemplate{block end}{
+  \end{beamercolorbox}
+  \vspace*{0.5em}
+}
+%%%%%
+\setbeamertemplate{block example begin}{
+\vspace*{1em}
+\getwidth{\insertblocktitle}
+	\begin{beamercolorbox}[ht=1.25em,dp=0.5em,leftskip=0.5em,%
+	wd=\dimexpr\gotwidth + 1em\relax]{block title example}%
+    	\usebeamerfont*{block title example}%
+    	\insertblocktitle
+	\end{beamercolorbox}%
+	\usebeamerfont{block body example}%
+	\vspace*{-1pt}%weird nasty space
+	\begin{beamercolorbox}[leftskip=0.5em,sep=0.5em]{block body example}%
+  }
+\setbeamertemplate{block example end}{
+  \end{beamercolorbox}
+  \vspace*{0.5em}
+}
+%%%%%%%%%%
+\setbeamertemplate{block alerted begin}{
+\vspace*{1em}
+\getwidth{\insertblocktitle}
+	\begin{beamercolorbox}[ht=1.25em,dp=0.5em,leftskip=0.5em,%
+	wd=\dimexpr\gotwidth + 1em\relax]{block title alerted}%
+    	\usebeamerfont*{block title alerted}%
+    	\insertblocktitle
+	\end{beamercolorbox}%
+	\usebeamerfont{block body alerted}%
+	\vspace*{-1pt}%weird nasty space
+	\begin{beamercolorbox}[leftskip=0.5em,sep=0.5em]{block body alerted}%
+  }
+\setbeamertemplate{block alerted end}{
+  \end{beamercolorbox}
+  \vspace*{0.5em}
+}
+
+
+
+
+
+
+%%% ENVIRONMENTS %%%
+% Each envrironment will appear within a block
+% We delete some beamer formatting
+\let\theorem\relax
+\let\example\relax
+\let\definition\relax
+\let\corollary\relax
+\let\lemma\relax
+% We define classes of environments
+\def\th@theorem{%
+    \def\inserttheoremblockenv{alertblock}
+  }
+\def\th@definition{%
+    \def\inserttheoremblockenv{block}
+  }
+\def\th@example{%
+    \def\inserttheoremblockenv{exampleblock}
+  }
+  
+\def\th@caca{%
+    test
+  }
+% We assign each environment to a specific class
+\theoremstyle{theorem} % Appear with alertblocks
+\newtheorem*{theorem}{\dico{Theorem}{Théorème}}
+\newtheorem*{corollary}{\dico{Corollary}{Corollaire}}
+
+\theoremstyle{definition} % Appear within blocks
+%\newtheorem*{remark}{Remark}
+\newtheorem*{definition}{\dico{Definition}{Définition}}
+\newtheorem*{proposition}{\dico{Proposition}{Proposition}}
+\newtheorem*{lemma}{\dico{Lemma}{Lemme}}
+
+\theoremstyle{example} % Appear within exampleblocks
+\newtheorem*{example}{\dico{Example}{Exemple}}
+
+% Exercice is a special case because it could be used both in a class (displayed as a block) or an exercice class (displayed in simple plain text). We use a conditional switcher for this
+\usepackage{ifthen}
+\usepackage{xifthen}
+\newif\ifplaintextexercise % false by default
+\newcommand{\plaintextexercise}{\plaintextexercisetrue} % Nicer handle
+\AtBeginDocument{%so the user can call \plaintextexercise in the preamble
+\ifplaintextexercise
+	%% Here we try to define exercise environment in a smart way
+	% https://tex.stackexchange.com/questions/34312/how-to-create-a-command-with-key-values
+	% https://stackoverflow.com/questions/2144176/latex-newcommand-default-argument-is-empty
+	\newcommand{\optionalparenthesiscontent}[1]{%
+		\ifthenelse{\equal{#1}{NULL}}%
+			{}%
+			{~(#1)}%
+	}	
+	\newcommand{\optionalcontent}[1]{%
+		\ifthenelse{\equal{#1}{NULL}}%
+			{}%
+			{~#1}%
+	}
+	% ========= KEY DEFINITIONS =========
+	\define@key{test}{title}{\def\exercise@title{#1}}
+	\define@key{test}{number}{\def\exercise@number{#1}}
+	\setkeys{test}{title=NULL,number=NULL}%
+
+	\newenvironment{exercise}[1][]{%
+		\begin{frame}
+		\setkeys{test}{#1}% Set new keys
+		{\textbf{\dico{Exercise}{Exercice}\optionalcontent{\exercise@number}\optionalparenthesiscontent{\exercise@title}.}~}%
+		}%
+		{\vspace*{\textheight}\end{frame}}
+\else% we treat exercise as an exampleblock
+	\theoremstyle{example}
+	\newtheorem*{exercise}{\dico{Exercise}{Exercice}}
+\fi
+}% end AtBeginDocument
+
+% Proofs and remarks
+% Here we want no blocks but simple text 
+
+\newenvironment{remark}[1][]{\textbf{\dico{Rk}{Rq}: #1}}{} 
+\renewenvironment{proof}{\textbf{\dico{Proof}{Preuve}:}}{} 
+\newenvironment{correction}{\textbf{Correction:}}{} 
+
+
+%%% SECTIONS %%%
+% Table of contents
+%\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}} %https://tex.stackexchange.com/questions/74529/sections-indexed-with-numbers-subsections-with-letters
+
+% At every section, we show the section name automatically
+\setbeamercolor{part title}{fg=\@colorfirst}
+% sections
+\setbeamertemplate{section page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[center]{part title}
+    \usebeamerfont{title}\MakeUppercase{\romannumeral\insertsectionnumber} : \insertsection\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+% starred section, with no numbering https://tex.stackexchange.com/questions/230127/beamer-sectionpage-for-section-command
+\setbeamertemplate{starsection page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[center]{part title}
+    \usebeamerfont{title}\insertsection\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+\AtBeginSection[%
+	\frame{\usebeamertemplate{starsection page}}%
+	]{%
+	\frame{\usebeamertemplate{section page}}%
+	}
+% subsections
+\setbeamertemplate{subsection page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[center]{part title}
+    \usebeamerfont{title}\MakeUppercase{\romannumeral\insertsectionnumber} : \insertsection\par
+    
+    \usebeamerfont{subtitle}{\insertsubsectionnumber} : \insertsubsection\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+\setbeamertemplate{starsubsection page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[center]{part title}
+    \usebeamerfont{title}\MakeUppercase{\romannumeral\insertsectionnumber} : \insertsection\par
+    
+    \usebeamerfont{subtitle}\insertsubsection\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+\AtBeginSubsection[%
+	\frame{\usebeamertemplate{starsubsection page}}%
+	]{%
+	\frame{\usebeamertemplate{subsection page}}%
+	}
+% subsubsections
+\setbeamertemplate{subsubsection page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[center]{part title}
+    \usebeamerfont{title}\MakeUppercase{\romannumeral\insertsectionnumber} : \insertsection\par
+    
+    \usebeamerfont{subtitle}{\insertsubsectionnumber} : \insertsubsection\par
+    
+    \usebeamerfont{subtitle}{\small {\thesubsubsection} : \insertsubsubsection}\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+\setbeamertemplate{starsubsubsection page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[center]{part title}
+    \usebeamerfont{title}\MakeUppercase{\romannumeral\insertsectionnumber} : \insertsection\par
+    
+    \usebeamerfont{subtitle}{\insertsubsectionnumber} : \insertsubsection\par
+    
+    \usebeamerfont{subtitle}{\small \insertsubsubsection}\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+\AtBeginSubsubsection[%
+	\frame{\usebeamertemplate{starsubsubsection page}}%
+	]{%
+	\frame{\usebeamertemplate{subsubsection page}}%
+	}
+
+
+
+
+
+
+%==============================
+% This is more work in progress
+%==============================
+
+
+% \pause repeats the last slide
+% I can't find how to add a totally empty slide
+\newcommand{\emptyslide}[1]{\onslide<#1>{}}
+% \addslide makes appear, in a 'only' way, some text from the next slide and further
+\newcommand{\addslide}[1]{\only<+(1)->{#1}}
+% \emptyframe[N] a frame with N empty slides (N=1 by default)
+\newcommand{\emptyframe}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\begin{frame}
+    
+    \end{frame}}%
+    {\begin{frame}<1-#1>
+		~
+	\end{frame}
+    }%
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% This is for simple boxes without title
+% We just enter text, eventually a color, and it gives a centered box with a nice background color. The size of the box adapts to the content NOPE because math mode cant be measured with getwidth.
+
+\newcommand{\colbox}[2][\@colorfirst!20]{%
+%	\getwidth{#2}
+	\setbeamercolor{local_color}{
+		fg=black, 
+		bg=#1
+	}
+	\hfill
+	\vspace*{1em}
+%	\ifdim \textwidth>\gotwidth
+%	\begin{beamercolorbox}[
+%		sep=0.5em,
+%		center,
+%		wd=\dimexpr\gotwidth + 1em\relax]{local_color}
+%		#2
+%	\end{beamercolorbox}
+%	\else
+	\begin{beamercolorbox}[
+		sep=0.5em,
+		center,
+		wd=\textwidth]{local_color}
+			#2
+	\end{beamercolorbox}
+%	\vspace*{2em}	
+}
+\newcommand{\colboxtight}[2][\@colorfirst!20]{%
+	\getwidth{#2}
+	\setbeamercolor{local_color}{
+		fg=black, 
+		bg=#1
+	}
+	\hfill
+	\vspace*{1em}
+	\ifdim \textwidth>\gotwidth
+	\begin{beamercolorbox}[
+		sep=0.5em,
+		center,
+		wd=\dimexpr\gotwidth + 1em\relax]{local_color}
+		#2
+	\end{beamercolorbox}
+	\else
+	\begin{beamercolorbox}[
+		sep=0.5em,
+		center,
+		wd=\textwidth]{local_color}
+		#2
+	\end{beamercolorbox}
+	\fi
+	\hfill{}
+}
+
+
+% A command for bottomnotes written in tiny, with proper spacing
+% https://tex.stackexchange.com/questions/166984/adjusting-spacing-in-beamer-while-changing-font-size?rq=1
+% https://tex.stackexchange.com/questions/29825/environment-definition-separates-matching-braces
+\usepackage{environ}% http://ctan.org/pkg/environ
+\NewEnviron{tinynote}{%
+  \parbox{\linewidth}{\tiny \BODY}%
+}
+
+
+
+%AIDE SUR LE SOMMAIRE%
+
+%\tableofcontents[sectionstyle=section en cours/autres sections]
+%les valeurs de style sont show (afficher la section normalement), shaded la section en grisé, hide ne pas afficher la section.
+%\tableofcontents[subsectionstyle=sous-section en cours/autres sous-sections de la section en cours/autres sous-sections]
+%les mêmes valeurs de style s'appliquent. Si vous n'indiquez que 2 valeurs au lieu des 3, la deuxième s'applique aux styles 2 et 3.
+
+
+
+%AUTRES INFOS
+%\onslide permet de cacher du texte mais il garde son espace
+%\only permet de faire apparaitre du texte sans occuper d'epace quand il est caché. Utile pour faire des remplacements.
