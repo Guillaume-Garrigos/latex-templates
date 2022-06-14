@@ -63,7 +63,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :oc:\Argmin::\underset{{}•{}}{{}\rm{{}argmin{}}{}}~{Space}•{Left 18}+{Left}
 :oc:\Min::\underset{{}•{}}{{}\rm{{}min{}}{}}~{Space}•{Left 15}+{Left}
 :o:\minimiser::\underset{{}•{}}{{}\rm{{}minimiser{}}{}}~{Space}•{Left 21}+{Left}
-:o:\prox::\rm{{}prox{}}_{{}•{}}{Left 1}+{Left}
+:o:\prox::{{}\rm{{}prox{}}{}}_{{}•{}}{Left 1}+{Left}
 
 :o:\bd::{{}\rm{{}bd{}}{}}~{Space}
 :o:\argmin::{{}\rm{{}argmin{}}{}}~{Space}
@@ -92,8 +92,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; Special
 :o:\R::\mathbb{{}R{}}
+:*:\Rinf::\mathbb{{}R{}}{Space}\cup{Space}\{{}{+}\infty\{}}
 :o:\N::\mathbb{{}N{}}
-:o:Loja::Łojasiewicz{Space}
+:o:Loja::Łojasiewicz
+
 
 ; Greek Letters small caps
 :*:\aa::\alpha  
