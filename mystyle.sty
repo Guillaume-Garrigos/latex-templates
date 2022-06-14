@@ -190,8 +190,22 @@
 \DeclareRobustCommand{\longlongrightarrow}{\relbar\joinrel\longrightarrow}
 
 
-%% Guillemets
-\newcommand{\eg}[1]{\og{}#1\fg{}} % entre guillemets
+%% GUILLEMETS
+% Ensures that a language is defined (english default)
+\@ifpackagewith{babel}{french}{% with \usepackage[french]{babel}
+	% we do nothing and ask babel to not mess up things
+	\frenchsetup{StandardLayout}
+	}{
+	% else we turn on english babel
+	\usepackage[english]{babel} %default value
+	}
+\newcommand{\eg}[1]{% EntreGuillemets
+    \iflanguage{english}{``{#1}''}{%
+    \iflanguage{french}{\og{}#1\fg{}}{}%
+    }%
+}
+%\newcommand{\eg}[1]{%
+%	\og{}#1\fg{}} % 
 %%
 %% Si tu préfères les autres styles de guillemets, remplace par la ligne suivante
 %%
