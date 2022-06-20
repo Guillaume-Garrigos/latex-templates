@@ -386,6 +386,32 @@
 \newenvironment{correction}{\textbf{Correction:}}{} 
 
 
+%%% EQUATIONS %%%
+% In beamer there are inconsistent vertical spaces when using {equation}
+% see https://tex.stackexchange.com/questions/615437/vertical-spacing-between-equation-and-itemize-environments/647807
+
+% Need etoolbox package
+\makeatletter
+\pretocmd{\itemize}{\ifhmode\unvbox\voidb@x\fi}{}{}
+\pretocmd{\enumerate}{\ifhmode\unvbox\voidb@x\fi}{}{}
+\makeatother
+
+\usepackage{amsmath} % already loaded by beamer but who knows
+\csletcs{equation}{gather}
+\csletcs{endequation}{endgather}
+\csletcs{equation*}{gather*}
+\csletcs{endequation*}{endgather*}
+
+
+
+
+
+
+
+
+
+
+
 %%% SECTIONS %%%
 % Table of contents
 %\renewcommand{\thechapter}{\Roman{chapter}}
