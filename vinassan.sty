@@ -387,23 +387,22 @@
 
 
 %%% EQUATIONS %%%
-% In beamer there are inconsistent vertical spaces when using {equation}
+% In beamer there are inconsistent vertical spaces when using {equation} so be replace them with gather
 % see https://tex.stackexchange.com/questions/615437/vertical-spacing-between-equation-and-itemize-environments/647807
+% no need for \makeatletter in .sty files
 
 % Need etoolbox package
-\makeatletter
 \pretocmd{\itemize}{\ifhmode\unvbox\voidb@x\fi}{}{}
 \pretocmd{\enumerate}{\ifhmode\unvbox\voidb@x\fi}{}{}
-\makeatother
 
 \usepackage{amsmath} % already loaded by beamer but who knows
 \csletcs{equation}{gather}
 \csletcs{endequation}{endgather}
 \csletcs{equation*}{gather*}
 \csletcs{endequation*}{endgather*}
-
-
-
+% The code above conflicts with \[ \] because its is defined by amsmath as ... equation*
+% not sure it'll be stable but let's try this https://tex.stackexchange.com/a/321960
+\def\[#1\]{\begin{gather*}#1\end{gather*}}
 
 
 
