@@ -166,6 +166,13 @@
 %\newcommand{\D}{{\rm D}}
 \newcommand{\dt}{{\rm d}t}
 %\newcommand{\dx}{{\rm d}x}
+\newlength\partialdimup
+\partialdimup=0.2em % pushing up the superscript
+\newlength\partialdimleft
+\partialdimleft=-0.2em % shortening the gap left to the symbol
+\newcommand{\partialF}{\partial^{\raisebox{\partialdimup}{$\scriptscriptstyle F$}}\hspace*{\partialdimleft}}
+\newcommand{\partialL}{\partial^{\raisebox{\partialdimup}{$\scriptscriptstyle L$}}\hspace*{\partialdimleft}}
+\newcommand{\partialC}{\partial^{\raisebox{\partialdimup}{$\scriptscriptstyle C$}}\hspace*{\partialdimleft}}
 
 %%%% Empty spaces
 \newcommand{\quadd}{\quad \quad}
