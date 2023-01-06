@@ -254,7 +254,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; /// 7. OTHER COMMANDS ///
 
-
 :*c:\AND::\quad \text{{} and {}} \quad{Space}
 :*c:\ET::\quad \text{{} et {}} \quad{Space}
 :*c:\SI::\quad \text{{} si {}} \quad{Space}
@@ -263,3 +262,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :*c:\TQ::\quad \text{{} tel que {}} \quad{Space}
 :?*:\.::$\cdot$
 :?*:\"::\eg{{}•{}}{Left 1}+{Left}
+; `n means Enter see https://www.autohotkey.com/docs/v1/Hotstrings.htm
+; b0 means we do not erase the hotstring
+; bs means backspace
+:?*b0:`n--::{bs 2}\item{Space} ; Allows to type \item with {Enter}--
