@@ -30,12 +30,13 @@
 \newlength{\hmargin}
 \setlength{\hmargin}{5em}
 \newlength{\tmargin}
-\setlength{\tmargin}{2em}
+\setlength{\tmargin}{5em}
 \newlength{\bmargin}
-\setlength{\bmargin}{3em}
+\setlength{\bmargin}{5em}
 \geometry{hmargin = \hmargin,
 		  tmargin = \tmargin,
-		  bmargin = \bmargin}
+		  bmargin = \bmargin,
+		  footskip = 0.5\bmargin}
 \pagestyle{empty} %plain, empty, headings
 \renewcommand{\thepage}{} % no page numbers anywhere
 
@@ -287,6 +288,7 @@
 
 \renewcommand{\maketitle}{
 % The header, lifted up :
+\vspace*{\dimexpr -\tmargin +1em} % dimexpr pour faire des sommes de units https://tex.stackexchange.com/a/616547
 
 \noindent \hspace*{-0.5\hmargin} \textit{\@promo} 
 \hfill 
@@ -334,6 +336,6 @@
 \hspace*{-0.5\hmargin} \textit{Contact: \@author \  \href{mailto:\@email}{\@email}}  
 }%
 \fancyfoot[R]{\small
-\vspace*{-0.5\hmargin} \textit{\color{gray}\@date} \hspace*{-0.5\hmargin}
+\textit{\color{gray}\@date} \hspace*{-0.5\hmargin}
 }%
 }% End of \MAKETITLE
