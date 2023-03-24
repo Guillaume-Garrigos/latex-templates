@@ -24,10 +24,18 @@
 
 % PAGE LAYOUT
 \usepackage{mathpazo}  % fonts
-\linespread{1.1}
+\linespread{1.0}
 \usepackage{geometry}
-\geometry{hmargin = 6em,
-		  vmargin = 8em}
+
+\newlength{\hmargin}
+\setlength{\hmargin}{5em}
+\newlength{\tmargin}
+\setlength{\tmargin}{2em}
+\newlength{\bmargin}
+\setlength{\bmargin}{3em}
+\geometry{hmargin = \hmargin,
+		  tmargin = \tmargin,
+		  bmargin = \bmargin}
 \pagestyle{empty} %plain, empty, headings
 \renewcommand{\thepage}{} % no page numbers anywhere
 
@@ -163,7 +171,7 @@
   {1em}%Space above ex: \topsep, 1em,
   {1em}%Space below
   {\itshape}%Body font. ex: \itshape for italic
-  {0pt}%Indent amount
+  {0em}%Indent amount
   {\color{\@colorfirst} \bfseries}% Theorem head font
   {.}%Punctuation after theorem head
   {0.5em}%Space after theorem head 2. ex: \newline ; 1.5em
@@ -172,7 +180,7 @@
   {1em}%Space above
   {1em}%Space below
   {}%Body font. ex: \itshape for italic
-  {0pt}%Indent amount
+  {0em}%Indent amount
   {\color{\@colorfirst} \bfseries}% Theorem head font
   {.}%Punctuation after theorem head
   {0.5em}%Space after theorem head 2. ex: \newline, 1.5em
@@ -225,41 +233,25 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%% TITLE / HEADER / FOOTER
 \usepackage{graphicx}
 \usepackage[export]{adjustbox} % add the options left/right to \includegraphics
 \usepackage[useregional]{datetime2} % For displaying the date
-\usepackage{fancyhdr} % For managing the headers/footers
+\usepackage[nocheck]{fancyhdr} % For managing the headers/footers
 \fancyhf{}% Clear all headers/footers
-\renewcommand{\headrulewidth}{0pt}% No header rule
-\renewcommand{\footrulewidth}{0pt}% No footer rule
+\renewcommand{\headrulewidth}{0em}% No header rule
+\renewcommand{\footrulewidth}{0em}% No footer rule
 \AtBeginDocument{
 	\thispagestyle{fancy}% Activate Footer on first page only
 }
 
 
 % First some commands to harvest the data, with default values
-\newcommand{\@logo}{\load/UP_white} % default value
+\newcommand{\@logo}{\load/images/UP_white} % default value
 \newcommand{\logo}[1]{\def\@logo{#1}}
 
 
-\newcommand{\@year}{2021-2022}
+\newcommand{\@year}{2022-2023}
 \renewcommand{\year}[1]{\renewcommand{\@year}{#1}}
 
 \renewcommand{\@author}{Guillaume Garrigos}
@@ -291,29 +283,21 @@
 \renewcommand{\date}[1]{\def\@date{#1}}
 
 % Here is the command creating title, header and footer
-\newif\iflogin
 \newif\ifexam % alias
-\AtBeginDocument{
-	\ifexam
-		\logintrue
-	\else
-		\loginfalse
-	\fi
-}
+
 \renewcommand{\maketitle}{
 % The header, lifted up :
-\vspace*{-6.5em}
 
-\noindent \hspace*{-4em} \textit{\@promo} 
+\noindent \hspace*{-0.5\hmargin} \textit{\@promo} 
 \hfill 
-\textit{\@year} \hspace*{-4em}
+\textit{\@year} \hspace*{-0.5\hmargin}
 
 \vspace*{1em}
 
-\iflogin%
-	\noindent \hspace*{-1.5cm} NOM: \hspace*{14em} Prénom: \hspace*{14em} N$^{\rm o}$ \'Etudiant$\cdot$e:%
+\ifexam%
+	\noindent \hspace*{-0.5\hmargin} NOM: \hspace*{14em} Prénom: \hspace*{14em} N$^{\rm o}$ \'Etudiant$\cdot$e:%
 \else%
-	\phantom{\noindent \hspace*{-1.5cm} NOM: \hspace*{14em} Prénom: \hspace*{14em} N$^{\rm o}$ \'Etudiant$\cdot$e:}%
+	\phantom{\noindent \hspace*{-0.5\hmargin} NOM: \hspace*{14em} Prénom: \hspace*{14em} N$^{\rm o}$ \'Etudiant$\cdot$e:}%
 \fi%
 
 \vspace*{1em}
@@ -347,9 +331,9 @@
 
 % Footer
 \fancyfoot[L]{\small
-\vspace*{1.5cm} \hspace*{-1.5cm} \textit{Contact: \@author \  \href{mailto:\@email}{\@email}}  
+\hspace*{-0.5\hmargin} \textit{Contact: \@author \  \href{mailto:\@email}{\@email}}  
 }%
 \fancyfoot[R]{\small
-\vspace*{1.5cm} \textit{\color{gray}\@date} \hspace*{-1.5cm}
+\vspace*{-0.5\hmargin} \textit{\color{gray}\@date} \hspace*{-0.5\hmargin}
 }%
 }% End of \MAKETITLE
