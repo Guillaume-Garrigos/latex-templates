@@ -254,7 +254,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
     Sleep 50 ;
     Return
 
-
 ; /// 7. OTHER TEXT COMMANDS ///
 
 :*c:\AND::\quad \text{{} and {}} \quad{Space}
@@ -270,7 +269,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; `n means Enter see https://www.autohotkey.com/docs/v1/Hotstrings.htm
 ; b0 means we do not erase the hotstring
 ; bs means backspace
-:?*b0:`n--::{bs 2}\item{Space} ; Allows to type {Enter}\item with {Enter}--
 
 ; /// 8. PROGRAM SPECIFIC COMMANDS ///
 
@@ -279,9 +277,4 @@ SetTitleMatchMode, 2 ; This let's any window that partially matches the given na
 ; https://www.autohotkey.com/docs/v1/lib/_IfWinActive.htm
 #IfWinActive ahk_exe texmaker.exe ; check the .exe name from task manager. Why is there a #?
 ^Enter::Send {F1} ; Ctrl+Enter now sends F1 when using texmaker. Hope this doesn't break other softwares
-
-
-
-
-
 
