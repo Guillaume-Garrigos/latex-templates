@@ -1,0 +1,93 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[english]{babel} % I wanna switch english/french
+\usepackage{lipsum} % dummy text
+
+\newcommand{\load}{../..} % where is vinassan.sty
+\newcommand{\images}{../../images} % where are images you wanna use
+\usepackage{\load/vinassan} % beamer theme
+
+
+\title{\textbf{A Great Presentation Title}}
+\subtitle{with a twist}
+\date{Date}
+\author{Name Name}
+\titlegraphic{
+	\hfill 		
+	\includegraphics[height=5em]{\load/images/UP_white_text}
+	}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+A frame with no title
+
+\begin{definition}
+A definition with \textbf{important words} and \emph{emphasized words}
+\end{definition}
+
+\begin{exercise}
+An exercise with \textbf{important words} and \emph{emphasized words}
+\end{exercise}
+
+\begin{theorem}
+A theorem with \textbf{important words} and \emph{emphasized words}
+\end{theorem}
+\end{frame}
+
+
+\begin{frame}[t]
+A frame with a top-alignment
+
+\begin{definition}
+A definition with \textbf{important words} and \emph{emphasized words}
+\end{definition}
+
+\begin{exercise}
+An exercise with \textbf{important words} and \emph{emphasized words}
+\end{exercise}
+
+\begin{theorem}
+A theorem with \textbf{important words} and \emph{emphasized words}
+\end{theorem}
+\end{frame}
+
+
+\begin{frame}{Now the frame gets a title}
+
+\begin{definition}[Me too]
+A definition with \textbf{important words} and \emph{emphasized words}
+\end{definition}
+
+\begin{exercise}[Me too!]
+An exercise with \textbf{important words} and \emph{emphasized words}
+\end{exercise}
+
+\begin{theorem}[Me too!!]
+A theorem with \textbf{important words} and \emph{emphasized words}
+\end{theorem}
+\end{frame}
+
+\section{A section title}
+
+\subsection{A subsection title}
+
+\subsubsection{Where does it stop?}
+
+\begin{frame}{Proof and remarks}
+\begin{theorem}[Someone - 1000 B.E.]
+There exists an infinite amount of natural numbers.
+\end{theorem}
+
+\begin{proof}
+For every number $n$ we can always consider $n+1$. The conclusion follows by contradiction.
+\end{proof}
+
+\begin{remark}
+We can use similar arguments to prove that there is an infinity of \emph{relative} numbers!
+\end{remark}
+\end{frame}
+
+\end{document}
