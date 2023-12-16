@@ -10,7 +10,7 @@ Here are some slides taken from a [grad course](https://guillaume-garrigos.com/M
 
 | Title | Definition / Examples | Theorems | Sections |
 | :------------------------------------: | --------------------- | -------- | -------- |
-| ![](_assets\slides\title.jpg) | ![](_assets\slides\definition.jpg) | ![](_assets\slides\theorem.jpg) | ![](_assets\slides\section.jpg) |
+| ![](assets\slides\title.jpg) | ![](assets\slides\definition.jpg) | ![](assets\slides\theorem.jpg) | ![](assets\slides\section.jpg) |
 
 I wrote this template during covid, as I had to give a lot of classes remotely. My goal was to have a unified color scheme (as usual blue for basic stuff, orange for important stuff, and green for side notes), while keeping the visuals as light as possible.
 
@@ -28,9 +28,9 @@ at the beginning of your latex file.
 
 In practice I fancy using specific fonts for my slides. If you want to use the same fonts as me, you need to install them (once and for all) on your computer, and to compile your documents using XeTeX instead of PdfLaTeX. If you wonder what is the difference between standard fonts and my fonts, here it is:
 
-|            Basic fonts             | Special fonts                      |
-| :--------------------------------: | ---------------------------------- |
-| ![](_assets\slides\font_basic.jpg) | ![](_assets\slides\font_xetex.jpg) |
+|            Basic fonts            | Special fonts                     |
+| :-------------------------------: | --------------------------------- |
+| ![](assets\slides\font_basic.jpg) | ![](assets\slides\font_xetex.jpg) |
 
 The two fonts I am using are `PT Sans Narrow Bold` (for the titles, which are used in Google Slides) and `Segoe UI` (for the main body). You need to download them, and add them to your OS (usually just put the .tff in the font folder of you OS). Then you are good to go!
 
