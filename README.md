@@ -10,7 +10,7 @@ Here are some slides taken from a [grad course](https://guillaume-garrigos.com/M
 
 | Title | Definition / Examples | Theorems | Sections |
 | :------------------------------------: | --------------------- | -------- | -------- |
-| ![](assets\slides\title.jpg) | ![](assets\slides\definition.jpg) | ![](assets\slides\theorem.jpg) | ![](assets\slides\section.jpg) |
+| ![](assets/slides/title.jpg) | ![](assets/slides/definition.jpg) | ![](assets/slides/theorem.jpg) | ![](assets/slides/section.jpg) |
 
 I wrote this template during covid, as I had to give a lot of classes remotely. My goal was to have a unified color scheme (as usual blue for basic stuff, orange for important stuff, and green for side notes), while keeping the visuals as light as possible.
 
@@ -30,7 +30,7 @@ In practice I fancy using specific fonts for my slides. If you want to use the s
 
 |            Basic fonts            | Special fonts                     |
 | :-------------------------------: | --------------------------------- |
-| ![](assets\slides\font_basic.jpg) | ![](assets\slides\font_xetex.jpg) |
+| ![](assets/slides/font_basic.jpg) | ![](assets/slides/font_xetex.jpg) |
 
 The two fonts I am using are `PT Sans Narrow Bold` (for the titles, which are used in Google Slides) and `Segoe UI` (for the main body). You need to download them, and add them to your OS (usually just put the .tff in the font folder of you OS). Then you are good to go!
 
