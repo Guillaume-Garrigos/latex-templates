@@ -15,6 +15,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; +     shift
 ; <!    left alt
 
+
+
 ; /// 1. BRACKETS WITH AUTO COMPLETION ///
 
 :*:\left(::\left(  \right){Left 8}
@@ -89,12 +91,14 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 ; /// 5. LETTERS ///
+; *? means no space needed at the end and can be stuck to another character before
 
 ; Special
 :o:\R::\mathbb{{}R{}}
-:*:\Rinf::\mathbb{{}R{}}{Space}\cup{Space}\{{}{+}\infty\{}}
+:?:\L::Ł
+:*?:\Rinf::\mathbb{{}R{}}{Space}\cup{Space}\{{}{+}\infty\{}}
 :o:\N::\mathbb{{}N{}}
-:o:Loja::Łojasiewicz
+:*?:Loja::Łojasiewicz
 
 
 ; Greek Letters small caps
@@ -199,8 +203,59 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
     Clipboard := ClipBackup
     Return
 
-; /// 7. OTHER COMMANDS ///
+; attempt to have a latex-comment-uncomment shortcut (adds/remove % at the beggining of selected lines)
+; found at https://www.autohotkey.com/board/topic/40900-adding-characters-beforeafterwrap-selected-text/
+; needed to add sleeping time otherwise clipboard broken
+; we keep the texmaker shortcut with alt instead of ctrl
+; in windows newlines are with CR+LR=/r/n but in unix it is just LR=/n so we will focus only on LR (e.g. for online services like overleaf)
 
+; first, adding % symbols
+!t::
+    Clipsaved := ClipboardAll
+    Sleep 50 ;
+    Clipboard := ""
+    Sleep 50 ;
+    Send, ^x
+    Sleep 100 ;
+    StringReplace, Clipboard, Clipboard, `n, `n, UseErrorLevel
+    Sleep 50 ;
+    StringReplace, Clipboard, Clipboard, `n, `n`%, All
+    Sleep 50 ;
+    ; if the first character of Clipboard is not a breakline, we add a % at the beggining of the selection
+    ; this is for handling the first line
+    If InStr(Clipboard, "`r`n") != 1 
+	Clipboard := "%" . Clipboard
+    Sleep 50 ;
+    Send ^v
+    Sleep 50 ;
+    Clipboard := Clipsaved
+    Sleep 50 ;
+    Clipsaved := ""
+    return
+
+; second, removing % symbols
+!u::
+    ClipSaved := ClipboardAll   ; Save the entire clipboard to a variable of your choice.
+    Sleep 50 ;
+    Clipboard= ; clear Clipboard
+    Sleep 50 ;
+    Send ^x ; cut text to Clipboard
+    Sleep 50 ;
+    StringReplace, Clipboard, Clipboard, `n`%, `n , All ; remove % after linebreaks
+    Sleep 50 ;
+    If InStr(Clipboard, "`%") == 1 ; if the selection starts with a % (so we missed it bc not preceded by linebreak)
+	StringTrimLeft, Clipboard, Clipboard, 1 ; we delete the first character
+    Sleep 50 ;
+    Send ^v ; paste new Clipboard
+    Sleep 50 ;
+    Clipboard := ClipSaved   ; Restore the original clipboard. Note the use of Clipboard (not ClipboardAll).
+    Sleep 50 ;
+    ClipSaved =   ; Free the memory in case the clipboard was very large.
+    Sleep 50 ;
+    Return
+
+
+; /// 7. OTHER TEXT COMMANDS ///
 
 :*c:\AND::\quad \text{{} and {}} \quad{Space}
 :*c:\ET::\quad \text{{} et {}} \quad{Space}
@@ -208,5 +263,25 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :*c:\IF::\quad \text{{} if {}} \quad{Space}
 :*c:\ST::\quad \text{{} such that {}} \quad{Space}
 :*c:\TQ::\quad \text{{} tel que {}} \quad{Space}
+:*c:\cad::c'est-à-dire{Space}
+:*c:\Cad::C'est-à-dire{Space}
 :?*:\.::$\cdot$
 :?*:\"::\eg{{}•{}}{Left 1}+{Left}
+; `n means Enter see https://www.autohotkey.com/docs/v1/Hotstrings.htm
+; b0 means we do not erase the hotstring
+; bs means backspace
+:?*b0:`n--::{bs 2}\item{Space} ; Allows to type {Enter}\item with {Enter}--
+
+; /// 8. PROGRAM SPECIFIC COMMANDS ///
+
+; from https://www.autohotkey.com/boards/viewtopic.php?t=42110
+SetTitleMatchMode, 2 ; This let's any window that partially matches the given name get activated
+; https://www.autohotkey.com/docs/v1/lib/_IfWinActive.htm
+#IfWinActive ahk_exe texmaker.exe ; check the .exe name from task manager. Why is there a #?
+^Enter::Send {F1} ; Ctrl+Enter now sends F1 when using texmaker. Hope this doesn't break other softwares
+
+
+
+
+
+

@@ -39,6 +39,7 @@
 \newcommand{\R}{\mathbb{R}}
 %\newcommand{\C}{\mathbb{C}}
 \newcommand{\B}{\mathbb{B}}
+\newcommand{\Rbar}{\overline{\mathbb{R}}}
 
 %%%%% Letters : mathCAL
 \newcommand{\Aa}{\mathcal{A}}
@@ -106,6 +107,7 @@
 %%%% Note: using \DeclareMathOperator does the same that \newcommand{\blablah}{\mbox{\rm blablah}} mith a nice space management
 
 \DeclareMathOperator{\act}{active}
+\DeclareMathOperator{\adh}{adh}
 \DeclareMathOperator{\aff}{aff}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\asupp}{asupp}
@@ -123,11 +125,13 @@
 \DeclareMathOperator{\cond}{cond}
 \DeclareMathOperator{\cone}{cone}
 	\DeclareMathOperator{\clcone}{\overline{cone}}
+\DeclareMathOperator{\cont}{cont}
 \DeclareMathOperator{\crit}{crit}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\Fix}{Fix}
 \DeclareMathOperator{\Graph}{Graph}
 \DeclareMathOperator{\Gr}{Gr}
 \let\Im\relax \DeclareMathOperator{\Im}{Im}
@@ -146,7 +150,10 @@
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\prox}{prox}
 \DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\refl}{refl}
+\DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\soft}{soft}
+\DeclareMathOperator{\Soft}{Soft}
 %\DeclareMathOperator{\sp}{sp}
 \DeclareMathOperator{\spec}{spec}
 \DeclareMathOperator{\supp}{supp}
@@ -161,11 +168,24 @@
 %%%%%%%%%% Others Definitions %%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%% Sequences
+
+\newcommand{\kin}{{k\in\N}}
+\newcommand{\nin}{{n\in\N}}
+
 %%%% Derivative stuff
 \renewcommand{\d}{{\rm d}}
 %\newcommand{\D}{{\rm D}}
 \newcommand{\dt}{{\rm d}t}
 %\newcommand{\dx}{{\rm d}x}
+\newlength\partialdimup
+\partialdimup=0.2em % pushing up the superscript
+\newlength\partialdimleft
+\partialdimleft=-0.2em % shortening the gap left to the symbol
+\newcommand{\partialF}{\partial^{\raisebox{\partialdimup}{$\scriptscriptstyle F$}}\hspace*{\partialdimleft}}
+\newcommand{\partialL}{\partial^{\raisebox{\partialdimup}{$\scriptscriptstyle L$}}\hspace*{\partialdimleft}}
+\newcommand{\partialC}{\partial^{\raisebox{\partialdimup}{$\scriptscriptstyle C$}}\hspace*{\partialdimleft}}
 
 %%%% Empty spaces
 \newcommand{\quadd}{\quad \quad}
@@ -190,8 +210,8 @@
 \DeclareRobustCommand{\longlongrightarrow}{\relbar\joinrel\longrightarrow}
 
 
-%% GUILLEMETS
-% Ensures that a language is defined (english default)
+%%% GUILLEMETS
+%% Ensures that a language is defined (english default)
 \@ifpackagewith{babel}{french}{% with \usepackage[french]{babel}
 	% we do nothing and ask babel to not mess up things
 	\frenchsetup{StandardLayout}
@@ -203,12 +223,8 @@
     \iflanguage{english}{``{#1}''}{%
     \iflanguage{french}{\og{}#1\fg{}}{}%
     }%
-}
-%\newcommand{\eg}[1]{%
-%	\og{}#1\fg{}} % 
-%%
-%% Si tu préfères les autres styles de guillemets, remplace par la ligne suivante
-%%
-% \newcommand{\eg}[1]{``{#1}''}
-%%
-%%
+}%
+
+
+%% TEXT
+\newcommand{\sci}{s.c.i.}
