@@ -36,4 +36,43 @@ The two fonts I am using are `PT Sans Narrow Bold` (for the titles, which are us
 
 ### Usage
 
-You can look at `_assets\slides\demo_beamer.tex` for an example of how to use the template.
+You can look at `assets\slides\demo_beamer.tex` for an example of how to use the template.
+
+## Templates for exercises
+
+### Overview
+
+This template contains the logo of my university, allows to include titles for exercises.
+
+|              Overview              |              Correction              |              Grades              |
+| :--------------------------------: | :----------------------------------: | :------------------------------: |
+| ![](assets/exercises/overview.jpg) | ![](assets/exercises/correction.jpg) | ![](assets/exercises/grades.jpg) |
+
+### Install
+
+You just need the `TD.sty` file, together with `colors.sty`.
+
+### Usage
+
+Optionally allows to indicate grades in the margin, can be activated with `\notetrue` in the preamble (needs two compilations in a row to wo. Option to write correction with the  `\begin{correction}` environment, hidden by default but can be activated with `\correctiontrue` in the preamble.
+
+See `assets\slides\demo_exercises.tex` for a detailed example.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

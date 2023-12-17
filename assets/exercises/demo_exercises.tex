@@ -1,0 +1,82 @@
+\documentclass[a4paper,reqno,11pt]{amsart}
+\usepackage[english]{babel} % I wanna switch english/french
+
+\newcommand{\load}{../..} % where is TD.sty
+\usepackage{\load/TD}
+
+
+\promo{Master 2}
+\year{2023-2024}
+\course{Optimization for Machine Learning}
+\title{TD 1 : Gradient Dynamics and Convexity}
+\author{Namy Name}
+
+\correctiontrue
+\notetrue
+
+\begin{document}
+
+\maketitle
+
+\textit{The exercises difficulty is indicated by the number of stars. Exercises marked with $\emptyset$ are beyond the scope of this class and aren't expected to be done or prepared.}
+
+
+\section*{Lyapunov energies for the gradient flow}
+
+\emph{Here we assume that $f \in \Gamma_0(H) \cap C^1(H)$, and that $u \in C^1([0,+\infty[;H)$ is a trajectory solution of 
+\begin{equation}\label{E:GD continuous ODE}
+(\forall t>0) \quad \dot u(t) + \nabla f(u(t)) = 0, \quad u(0) = u^0.
+\end{equation}
+We will say that a function $\mathcal{E} : H \rightarrow \mathbb{R}$ is a \textsc{Lyapunov energy} if $t \mapsto \mathcal{E}(u(t))$ is decreasing. }
+
+\begin{exercise}[Nonexpansive dynamic]
+\notebf{*}
+Let $u, v : [0,+\infty[ \rightarrow H$ be two solutions of the continuous Gradient Descent dynamic \eqref{E:GD continuous ODE}, starting from two distinct points $u(0)$ and $v(0)$.
+Show that this dynamic is nonexpansive:
+\begin{equation*}
+(\forall t>0)(\forall h \geq 0) \quad \Vert u(t+h) - v(t+h) \Vert \leq \Vert u(h) - v(h) \Vert.
+\end{equation*}
+To prove this, you can study the variations of $t \mapsto (1/2) \Vert u(t+h) - v(t+h) \Vert^2$.
+\end{exercise}
+
+\begin{correction}
+\begin{eqnarray*}
+\frac{d}{dt} (1/2) \Vert u(t+h) - v(t+h) \Vert^2 
+& = &
+\langle \dot u(t+h) - \dot v(t+h) , u(t+h) - v(t+h) \rangle \\
+& = &
+- \langle \nabla f(u(t+h)) - \nabla f( v(t+h)), u(t+h) - v(t+h) \rangle \\
+& \leq &
+0 \quad \text{ because $\nabla f$ is monotone.}
+\end{eqnarray*}
+We therefore just proved that this function is decreasing, which means that at any $t$ it is smaller than its value at $t=0$. Which is what we wanted.
+\end{correction}
+
+
+\begin{exercise}[Getting closer to the solution]
+\notebf{*}
+Let $x^* \in {\rm{argmin}}~f \neq \emptyset$.
+Show that $\mathcal{E}(x) = (1/2)\Vert x - x^* \Vert^2$ is a Lyapunov energy.
+\end{exercise}
+
+\begin{correction}
+\begin{eqnarray*}
+(\mathcal{E} \circ x)'(t)
+& = &
+\frac{d}{dt} (1/2)\Vert x(t) - x^* \Vert^2
+=
+\langle \dot x(t), x(t) - x^* \rangle
+= 
+\langle \nabla f(x(t)), x^* - x(t) \rangle \\
+& \leq & 
+f(x^*) - f(x(t)) \quad \text{ because $f$ is convex} \\
+& \leq & 
+0 \quad \text{ because $f(x^*) = \inf f \leq f(x(t))$}.
+\end{eqnarray*}
+\end{correction}
+
+
+
+
+
+\end{document}
