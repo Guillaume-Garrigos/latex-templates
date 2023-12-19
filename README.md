@@ -110,6 +110,6 @@ Use `colorposter.sty`. You can see the code of the above poster in `assets/poste
 
 I have a couple customs commands to make life easier
 
-- A ``begin{colorblock}[backgroundcolor=.]` environment for the big colored blocks
-- A ``begin{colorframe}[backgroundcolor=.,linecolor=.]` environment for the frames with border and possibliy different background
+- A `begin{colorblock}[backgroundcolor=.]` environment for the big colored blocks
+- A `begin{colorframe}[backgroundcolor=.,linecolor=.]` environment for the frames with border and possibliy different background
 
