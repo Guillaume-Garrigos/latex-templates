@@ -2,6 +2,11 @@
 
 Here I save and gather some templates I'm using to write LaTeX documents.
 
+- [Template for slides with beamer](##Template-for-slides-with-beamer)
+- [Templates for exercises](##Templates-for-exercises)
+- [Template for book](##Template-for-book)
+- [Macros for writing LaTeX outside of LaTeX](##Macros-for-writing-LaTeX-outside-of-LaTeX)
+
 ## Template for slides with beamer
 
 ### Overview
@@ -54,25 +59,36 @@ You just need the `TD.sty` file, together with `colors.sty`.
 
 ### Usage
 
-Optionally allows to indicate grades in the margin, can be activated with `\notetrue` in the preamble (needs two compilations in a row to wo. Option to write correction with the  `\begin{correction}` environment, hidden by default but can be activated with `\correctiontrue` in the preamble.
+Optionally allows to indicate grades in the margin, can be activated with `\notetrue` in the preamble (needs two compilations in a row to work properly). Option to write correction with the  `\begin{correction}` environment, hidden by default but can be activated with `\correctiontrue` in the preamble.
 
 See `assets\slides\demo_exercises.tex` for a detailed example.
 
+## Template for book
 
+### Overview
 
+| ![](assets/book/chapter.jpg) | ![](assets/book/example.jpg) |
+| :--------------------------: | ---------------------------- |
 
+Template which I used to write notes for my undergrad optimization class.
 
+### Install
 
+See `poly.sty`
 
+## Macros for writing LaTeX outside of LaTeX
 
+| Macro Overview (slightly slowed down) |
+| ------------------------------------- |
+| ![](assets/macros/demo.gif)           |
 
+Originally I only typed latex within a specific Latex program (texmaker in my case), where I had some macros (say `\R` as a macro for `\mathbb{R}`). Problem is that I started to need to write Latex in other places, such as in mails, in stackexchange, or while taking notes in Markdown.
 
+The solution for me was to define macros at the OS level, and on Windows I'm using AutoHotKeys.
 
+The script `latex_macro.ahk` contains a bunch of basic macros such as "if I type `\RR` replace it with `\mathbb{R}`", but also more advanced ones :
 
-
-
-
-
-
-
+- brackets with autocompletion, e.g. `\left(  \right)`
+- Comment/Uncomment many selected lines at once with Alt+T / Alt+U (to mimic Texmaker functionality in Overleaf for instance)
+- Replace `F1` with `Ctrl+Enter` to compile in Texmaker (to mimic Overleaf)
 
