@@ -2,10 +2,10 @@
 
 Here I save and gather some templates I'm using to write LaTeX documents.
 
-- [Template for slides with beamer](##Template-for-slides-with-beamer)
-- [Templates for exercises](##Templates-for-exercises)
-- [Template for book](##Template-for-book)
-- [Macros for writing LaTeX outside of LaTeX](##Macros-for-writing-LaTeX-outside-of-LaTeX)
+- [Template for slides with beamer](#Template-for-slides-with-beamer)
+- [Templates for exercises](#Templates-for-exercises)
+- [Template for book](#Template-for-book)
+- [Macros for writing LaTeX outside of LaTeX](#Macros-for-writing-LaTeX-outside-of-LaTeX)
 
 ## Template for slides with beamer
 
