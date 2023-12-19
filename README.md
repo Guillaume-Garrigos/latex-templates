@@ -79,9 +79,9 @@ See `poly.sty`
 
 ## Macros for writing LaTeX outside of LaTeX
 
-| Macro Overview (slightly slowed down) |
-| ------------------------------------- |
-| ![](assets/macros/demo.gif)           |
+| Macro for basic commands    | Macro for commenting lines     |
+| --------------------------- | ------------------------------ |
+| ![](assets/macros/demo.gif) | ![](assets/macros/comment.gif) |
 
 Originally I only typed latex within a specific Latex program (texmaker in my case), where I had some macros (say `\R` as a macro for `\mathbb{R}`). Problem is that I started to need to write Latex in other places, such as in mails, in stackexchange, or while taking notes in Markdown.
 
