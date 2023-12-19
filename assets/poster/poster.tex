@@ -1,0 +1,355 @@
+\documentclass[final]{beamer}
+\usepackage[orientation=landscape,size=a0,scale=1.5,debug]{beamerposter} 
+\newcommand{\load}{../..} % where is colorposter.sty
+\usepackage{\load/colorposter}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\newcommand{\vsp}{\vspace{15pt}} % vertical space. I use that everywhere to adjust the look of the poster. Dirty but does the job
+
+
+%%% Poster specifics
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\argmin}{argmin}
+\usepackage{pifont} % numbers in circles
+%%% ---------------------------
+
+
+%%% TITLE, AUTHORS, LOGO
+\title{\textbf{Convergence guarantees for black-box
+variational inference} \vspace{0.5cm}}
+
+\author{%
+	{\textbf{Justin Domke}}$^1$, \textbf{{Guillaume Garrigos}}$^2$, \textbf{{Robert Gower}}$^3$  \vspace{0.5cm}%
+}
+
+\institute{%
+	{\color{gray_dark}%
+	$^1$University of Massachusetts Amherst, $^2$Universit\'e Paris Cit\'e, $^3$Flatiron Institute
+	} \vspace{0.5cm}
+}
+
+\logo{%
+	\includegraphics[width=0.33\paperheight]{img/logos.png}% set it so the logo's height is barely larger than title+affiliations
+	\hspace{2.5cm}% right space, aligns with color box below
+}
+%%% ---------------------------
+
+
+%%% FOOTER
+% Put here whatever you want, for me reference + QR code
+\newcommand{\footleft}{
+\small 
+\hspace*{2cm}
+{\color{gray_dark} 
+%arXiv:2306.03638%
+\includegraphics[width=8cm]{./img/qrcode.png}
+}
+}
+
+\newcommand{\footright}{\small {\color{gray_dark} 
+J. Domke, G. Garrigos and R. Gower, 
+\textit{Provable convergence guarantees for black-box variational inference},
+NeurIPS 2023.} 
+\hspace*{2cm}
+}
+%%% ---------------------------
+
+
+
+
+
+
+
+
+
+
+%%% MAIN BODY
+\begin{document}
+\begin{frame}{}
+	\vspace{-30pt}
+	
+	\begin{columns}[t]
+	
+	
+		%%% FIRST COLUMN
+		\begin{column}{0.30\linewidth}
+%%% Intro
+\begin{colorblock}[backgroundcolor=lightlightgray]
+{\color{gray_dark}\textbf{\large Goal:} find a Gaussian approximation of a distribution, with a {\color{bordeaux}\textbf{tractable}} and {\color{bordeaux}\textbf{theoretically grounded}} stochastic algorithm. 
+}
+
+\vspace*{-0.5em}
+{\color{gray_dark}
+{\color{gray_dark}\textbf{\large How:}} 
+using {\color{bordeaux}\textbf{proximal/projected stochastic}}  methods with standard estimators of the gradient of the joint distribution, and exploit new {\color{bordeaux}\textbf{variance bounds}} 
+ to prove convergence.%
+}
+\end{colorblock}
+%%% End Intro
+
+%%% Setting
+\begin{colorblock}[backgroundcolor=yellow_dark]
+\textbf{\large Setting}
+\vsp 
+
+Given a distribution $p(z,x)$ where $x \in \mathbb{R}^n$ are observed data and $z \in \mathbb{R}^d$ are latent variables, we want to approximate the posterior $p(z|x)$ by a 
+Gaussian distribution $q_w$ by minimizing the KL-divergence:
+\begin{equation*}
+w^* \in \underset{w =(w,C), C \succ 0}{\argmin} \quad 
+KL(q_w \ || \ p(\cdot | x)) = \mathbb{E}_{z \sim q_w} \ln \frac{q_w(z)}{p(z | w)}
+\end{equation*}
+
+
+\vsp \vsp
+
+\vsp
+{\bf Examples:} Bayesian linear regression, or logistic regression with  Gaussian prior and hierarchical logistic regression model.
+
+\begin{colorframe}[linecolor=red_fat, backgroundcolor=yellow_clear]
+\textbf{\large Assumptions}
+\vsp 
+\begin{itemize}
+	\item[\colortriangle{red_fat}] $\log p(\cdot, x)$ is computable, {\color{red_fat}\textbf{concave and $M$-smooth}} 
+	\item[\colortriangle{red_fat}] 
+	multivariate gaussian family $q_w \sim \mathcal{N}(m,CC^\top)$
+	\item[\colortriangle{red_fat}] parameters are $w=(m,C) \in \mathbb{R}^d \times V$ with $C \succ 0$
+	\item[\colortriangle{red_fat}] covariance factors $C \in V$ are triangular or symmetric 
+	\item[\colortriangle{red_fat}] the problem admits a solution 
+%
+
+\end{itemize}
+
+\end{colorframe}
+\end{colorblock}
+%%% End Setting
+
+%%% Towards optimization
+\begin{colorblock}[backgroundcolor=yellow_dark]
+\textbf{\large Towards optimization}
+\vsp 
+
+Minimizing KL-divergence is equivalent to minimizing the sum (negative ELBO) $f = \ell + h$ where
+
+\vsp
+
+\colortriangle{red_fat} 
+$\ell(w) = -\mathbb{E}_{z\sim q_w}\log p(z,x)$ is the {\color{red_fat}\textbf{free energy}}
+
+\vsp
+
+\colortriangle{red_fat} 
+$h(w) = \begin{cases}
+	\mathbb{E}_{z\sim q_w}\log q_w(z) & \text{if } C \succ 0,\\
+    %\mathbb{E}_{z\sim q_w}\log q_w(z) & \text{if } C \succ 0\\
+	+ \infty & \text{else},
+\end{cases} $ is the {\color{red_fat}\textbf{neg-entropy}}
+\end{colorblock}
+%%% End towards optimization
+		\end{column}%1
+		\begin{column}{0.30\linewidth}
+			%%% SECOND COLUMN
+\begin{colorblock}[backgroundcolor=orange_dark]
+\textbf{\large The optimization point of view}
+\vsp \vsp 
+
+
+\textbf{Proposition.} 
+Under our modeling assumptions:
+
+\vsp
+
+\colortriangle{purple_fat} 
+	Regular solution: $w^* \in \mathcal{W}_M = \left\{ (m,C) : \sigma_{\min}(C)^2 \geq \frac{1}{M} \right\}$
+	
+\colortriangle{purple_fat} 
+	{\color{purple_fat}\textbf{Convexity}} of $\ell$ and $h$ (strong convexity possible)
+ 
+\colortriangle{purple_fat} 
+	{\color{purple_fat}\textbf{Smoothness}} of $\ell$, and smoothness of $h$ over $\mathcal{W}_M$
+
+\vsp \vsp
+
+This opens the door to two optimization strategies:
+handle non-smoothness of $h$ using a prox step, and $\ell$ with a gradient 
+
+\begin{colorframe}[backgroundcolor=orange_clear, linecolor=purple_fat]
+	{\color{purple_fat}\textbf{\ding{192}}} Use a {\color{purple_fat}\textbf{proximal}}-gradient stochastic scheme (Prox-SGD) 
+	\begin{equation*}
+	w^{t+1} = {\color{purple_fat}\prox_{\gamma_t h}} \left( w^t - \gamma_t g^t \right), \text{ where } \mathbb{E}[g^t | w^t] = \nabla {\color{purple_fat}\ell}(w^t)
+	\end{equation*}
+\end{colorframe}
+
+
+or 
+keep $h$ smooth using a projection onto $\mathcal{W}_M$, and leverage resulting smoothness of $\ell + h$ with gradient steps
+
+\begin{colorframe}[backgroundcolor=orange_clear, linecolor=purple_fat]
+{\color{purple_fat}\textbf{\ding{193}}} Use a {\color{purple_fat}\textbf{projected}}-gradient stochastic scheme (Proj-SGD)
+\begin{equation*}
+w^{t+1} = {\color{purple_fat}\proj_{\mathcal{W}_M}} \left( w^t - \gamma_t g^t \right), \text{ where } \mathbb{E}[g^t | w^t] = \nabla {\color{purple_fat}f}(w^t)
+\end{equation*}
+\end{colorframe}
+\end{colorblock}
+
+
+
+
+
+
+\begin{colorblock}[backgroundcolor=orange_dark]
+
+\textbf{\large Computational considerations }
+
+\vsp \vsp
+
+\begin{itemize}
+	\item[{\color{purple_fat}\textbf{\ding{192}}}] 
+	If $C$ triangular
+ then $\prox_{\gamma h}(m,C)$ can be computed with
+    \vsp
+	\begin{equation*}
+	C_{ij} \leftarrow 
+	\begin{cases}
+	(C_{ii} + \sqrt{C_{ii}^2 + 4\gamma })/2 & \text{if } i=j \\
+	C_{ij} & \text{if } i>j \\
+	0 & \text{if } i<j
+	\end{cases}
+	\end{equation*}		
+	\vsp
+	
+	\item[{\color{purple_fat}\textbf{\ding{193}}}] 
+If $C$ symmetric then
+ $\proj_{\mathcal{W}_M}(m,C)$ can be computed with
+ \vsp
+	\begin{eqnarray*}
+	C & \leftarrow & (C+C^\top)/2 \\
+	C & \leftarrow & U D^+ U^\top, \text{ where } C = UDU^\top, \ D^+_{ii} = \max\{D_{ii},M^{-1/2}\}
+	\end{eqnarray*}
+\end{itemize}
+
+
+\vsp \vsp
+
+
+\colortriangle{purple_fat}
+Prox-SGD much {\color{purple_fat}\textbf{simpler}} than Proj-SGD per iteration
+
+\colortriangle{purple_fat}
+Proj-SGD needs to maintain rank-one updates of SVD
+
+\colortriangle{purple_fat}
+Similar to how VI is used in practice: Compute gradients with backprop then transform $C$ to be symmetric or triangular
+\end{colorblock}
+
+			
+			
+		\end{column}%2
+		\begin{column}{0.30\linewidth}
+			%% THIRD COLUMN
+\begin{colorblock}[backgroundcolor=green_dark]
+	
+			
+\textbf{\large Stochastic estimators of the gradients}
+\vsp \vsp 
+
+We study {\color{blue_fat}\textbf{standard}} estimators of $\nabla \ell$ or $\nabla f$.
+They rely on a reparametrization $\mathcal{T}_w(u) = Cu+m$ where $u^t \sim \mathcal{N}(0,I_d)$.
+
+\vsp
+
+\colortriangle{blue_fat}
+\colortriangle{blue_fat} Energy: $g^t_{ene} = - \nabla_w \log p(\mathcal{T}_{w^t}(u),x)$
+
+\colortriangle{blue_fat} Entropy: $g^t_{ent} = - \nabla_w \log p(\mathcal{T}_{w^t}(u),x) + \nabla h(w^t)$
+
+\colortriangle{blue_fat} STL: $g^t_{STL} = \nabla_w \left[ - \log p(\mathcal{T}_{w^t}(u^t),x) + \log q_v(\mathcal{T}_{w^t}(u^t)) \right]_{v=w^t}$
+
+
+\vsp \vsp
+
+\textbf{Proposition (Unbiaised estimators).} Conditioned on $w^t$:
+\begin{equation*}
+    \mathbb{E}_u\left[ g^t_{ene}  \right] = \nabla \ell(w^t) 
+    \ \text{ and } \ 
+    \mathbb{E}_u\left[ g^t_{ent}  \right] = 
+    \mathbb{E}_u\left[ g^t_{STL}  \right] = \nabla f(w^t) 
+\end{equation*}
+
+\vsp \vsp
+
+\textbf{Theorem (Quadratic variance bound).} 
+For each estimator, there exists $a,b \geq 0$ (of the order $dM^2$) such that
+\begin{equation*}
+(\forall t \in \mathbb{N}) \quad 
+    \mathbb{E}_u\left[ \Vert g^t \Vert^2 \right] \leq a \Vert w^t - w^* \Vert^2 + b
+\end{equation*}
+
+\vsp
+
+\colortriangle{blue_fat} For STL, $b=0$ when $p(\cdot | x)$ is Gaussian (interpolation)!
+
+\vsp
+
+\end{colorblock}		
+			
+		
+\begin{colorblock}[backgroundcolor=green_dark]
+
+\textbf{\large SGD with quadratically bounded estimators }
+
+\begin{colorframe}[backgroundcolor=green_clear, linecolor=blue_fat]
+
+{\color{blue_fat}\textbf{No existing theory}} for tackling together a quadratic variance bound, proximal steps and non-globally smooth function.
+\end{colorframe}
+
+
+\textbf{Theorem.}
+Take a quadratically bounded estimator with either
+
+\vsp
+
+{\color{blue_fat}\textbf{\ding{192}}} Prox-SGD for $h$ convex, $\ell$ smooth and convex
+
+{\color{blue_fat}\textbf{\ding{193}}} Proj-SGD for $f=h+\ell$ convex 
+
+\vsp
+
+Provided that the stepsize $\gamma_t$ is chosen properly:
+
+\begin{equation*}
+    \mathbb{E}\left[ f(x^T) - \inf f \right] 
+    = O \left( \frac{a+b}{\sqrt{T}} \right)
+\end{equation*}
+
+\vsp
+
+If $\ell$ is further \emph{strongly} convex, then for some $\theta \in [0,1)$
+
+\begin{equation*}
+    \mathbb{E}[\Vert x^T - x^* \Vert^2] = 
+    O\left(a \theta^T +b \right)
+\end{equation*}
+
+\vsp \vsp
+
+\colortriangle{blue_fat}
+Standard complexity for SGD-like methods: $1/\varepsilon^2$ and $1/\varepsilon$
+
+
+\colortriangle{blue_fat}
+Complexity {\color{blue_fat}\textbf{improves}} when interpolation holds ($b=0$)
+
+\colortriangle{blue_fat}
+Proj-SGD + STL estimator + interplotion $\implies $ exp. conv.
+
+\vsp
+\end{colorblock}
+
+		\end{column}%column 3
+	\end{columns}
+\end{frame}
+
+\end{document}
+%%% --------------------------

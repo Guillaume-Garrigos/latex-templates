@@ -1,0 +1,216 @@
+% adapted Philippe Dreuw and Thomas Deselaers
+% further adapted from edits by James Malcolm
+% Shawn Lankton made some edits
+% further adapted (colorized) by Guillaume Garrigos
+
+\usepackage{mdframed} % what creates color blocks
+\ProvidesPackage{beamerthemecolorposter}
+\mode<presentation>
+\setbeamertemplate{navigation symbols}{} % Irrelevant for posters
+
+\let\insertlogo\relax % \insertlogo is a shortcut for \usebeamertemplate*{logo}, where logo is defined by the user. Problem is that by default beamer displays the logo at the bottom left and I don't know how to prevent this from happening. So I'd rather deactivate it and use directly \usebeamertemplate*{logo} when I need it. See https://tex.stackexchange.com/questions/18586
+
+
+%%% COLORS DEFINITIONS
+% Feel free to add stuff here
+
+\definecolor{butter}{rgb}{0.98824, 0.91373, 0.30980}		% #fce94f
+\definecolor{orange}{rgb}{0.98824, 0.68627, 0.24314}		% #fcaf3e
+\definecolor{lightlightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{lightlightred}{rgb}{1,0.83,0.83}
+\definecolor{yellow_dark}{HTML}{F6C96F}
+\definecolor{yellow_clear}{HTML}{FFF7C7}
+\definecolor{green_dark}{HTML}{8BC9B5}
+\definecolor{green_clear}{HTML}{C9EAE0}
+\definecolor{orange_dark}{HTML}{F6977E}
+\definecolor{orange_clear}{HTML}{FEDAD6}
+\definecolor{blue_dark}{HTML}{1D2E78}
+\definecolor{red_fat}{HTML}{BD1901}
+\definecolor{blue_fat}{HTML}{031173}
+\definecolor{purple_fat}{HTML}{9B208C}
+%\definecolor{lightlightgray}{HTML}{EBEBEB}
+\definecolor{gray_dark}{HTML}{58544B}
+\definecolor{bordeaux}{HTML}{90204D}
+%%% ---------------------------
+
+
+%%% COLOR USAGE	
+\setbeamercolor{headline}{bg=lightlightgray}
+\setbeamercolor{footline}{bg=lightlightgray}
+\setbeamerfont{footline}{size=\large}
+\setbeamercolor{separation line}{bg=gray_dark}
+\setbeamercolor{title in headline}{fg=gray_dark,bg=red}
+\setbeamercolor{author in headline}{fg=black}
+\setbeamercolor{institute in headline}{fg=black}
+\setbeamercolor{infos}{fg=black}
+
+%\setbeamercolor{framesubtitle}{fg=blue, bg=gray}
+\setbeamercolor{author in head/foot}{fg=white,bg=lightlightgray}
+\setbeamercolor{title in head/foot}{fg=white,bg=lightlightgray}
+\setbeamercolor{website in footline}{fg=black,bg=lightlightgray}
+\setbeamercolor{email in footline}{fg=black,bg=lightlightgray}
+
+\setbeamercolor*{normal text}{fg=black, bg=lightlightgray}
+\setbeamercolor*{block body}{fg=black,bg=lightlightgray}
+\setbeamercolor*{block title}{fg=black,bg=lightgray}
+\setbeamerfont{block title}{size=\large,series=\sc\bf}
+\setbeamercolor{upper separation line head}{fg=red}
+%%% ---------------------------
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+  \vskip.5ex
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=1ex,colsep*=.5ex]{block title}%
+    \usebeamerfont*{block title}{\Large \insertblocktitle}
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[rounded=true,shadow=true,colsep*=.5ex,sep=.5ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.5ex}\vbox{}%
+  }
+  \setbeamertemplate{block end}{
+  \end{beamercolorbox}
+}
+
+\newenvironment<>{myalertblock}[1]{
+\begin{actionenv}#2%
+      \def\insertblocktitle{#1}%
+      \par%
+      \mode<presentation>{%
+        \setbeamercolor{block title}{bg=lightlightred}
+       \setbeamercolor{block body}{bg=lightlightgray}
+     }%
+      \usebeamertemplate{block begin}}
+    {\par\usebeamertemplate{block end}\end{actionenv}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{
+  \leavevmode
+
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+    \begin{columns}[T]
+      
+      
+      \begin{column}{0.67\paperwidth}
+        \vskip5ex
+        \raggedleft
+        \usebeamercolor{title in headline}{\color{fg}\textbf{\huge{\inserttitle}}\\}
+        \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\}
+        \usebeamercolor{institute in headline}{\color{fg}\normalsize{\insertinstitute}\\}
+        %\vskip2ex
+      \end{column}
+      \begin{column}{.30\paperwidth}
+        \centering
+		\usebeamertemplate*{logo}      
+        
+        \vsp
+      \end{column}
+    \end{columns}
+  \end{beamercolorbox}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{
+    \hbox{% to create like two columns, to adjust the length of the separation line
+  \begin{beamercolorbox}[wd=0.12\paperwidth]{upper separation line foot}
+    %\rule{0pt}{2pt}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[wd=0.88\paperwidth]{upper separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+  }
+  \leavevmode%
+  \begin{beamercolorbox}[ht=4ex,leftskip=1cm,rightskip=1cm]{author in head/foot}%
+    \usebeamercolor{website in footline}{\color{fg} \footleft}
+    \hfill
+    \usebeamercolor{email in footline}{\color{fg}\footright}
+    \vskip1ex
+  \end{beamercolorbox}
+  \vskip0pt%
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%\beamertemplategridbackground[1cm] % a grid to help align images ... and it looks nice with this color scheme
+
+
+%%%% COLOR BLOCKS DEFINITIONS
+\usepackage{environ}
+\usepackage{keyval}
+
+%%% Frame with a colored border and specific background color
+% see https://tex.stackexchange.com/questions/557894
+\makeatletter
+\define@key{colorframe@keys}{backgroundcolor}{\def\colorframe@backgroundcolor{#1}}%
+\define@key{colorframe@keys}{linecolor}{\def\colorframe@linecolor{#1}}%
+
+\newenvironment{colorframe}[1][]
+{%
+    \setkeys{colorframe@keys}{backgroundcolor=white,linecolor=black,#1}
+    \vsp \vsp
+	\begin{mdframed}[
+		backgroundcolor=\colorframe@backgroundcolor,
+		linewidth=10pt, 
+		linecolor=\colorframe@linecolor]
+		\vsp%
+}%
+{%
+		\vsp%
+	\end{mdframed}
+	\vsp
+}
+\makeatother
+
+
+
+%%\begin{colorblock}{backgroundcolor_of_your_choice}
+%%...
+%%\end{colorblock}
+\makeatletter
+\define@key{colorblock@keys}{backgroundcolor}{\def\colorblock@backgroundcolor{#1}}%
+
+\newenvironment{colorblock}[1][]% environment name
+{% 
+	\setkeys{colorblock@keys}{backgroundcolor=white,#1}
+	\vsp
+	\begin{mdframed}[backgroundcolor=\colorblock@backgroundcolor,linewidth=0pt]
+		\vsp
+		\begin{columns}[t] 
+			\begin{column}{0.025\linewidth}
+			\end{column}%1
+			\begin{column}{0.95\linewidth}
+			
+}%
+{
+			\end{column}%2
+			\begin{column}{0.025\linewidth}
+			\end{column}%3
+		\end{columns}
+		\vsp 
+	\end{mdframed}
+	\vsp
+}% 
+\makeatother
+
+
+\newcommand{\colortriangle}[1]{{\color{#1}\textbf{$\blacktriangleright$}}}
+
+%%%% --------------------------
+
+
+
+
+
+
+
+
+
+
+

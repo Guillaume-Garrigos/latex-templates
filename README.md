@@ -1,11 +1,12 @@
 # Latex templates
 
-Here I save and gather some templates I'm using to write LaTeX documents.
+Here I save and gather some templates I'm using to write LaTeX documents. You are free to reuse them as you wish, I would just ask you to leave a link towards this repository to be in your source code.
 
 - [Template for slides with beamer](#Template-for-slides-with-beamer)
 - [Templates for exercises](#Templates-for-exercises)
 - [Template for book](#Template-for-book)
 - [Macros for writing LaTeX outside of LaTeX](#Macros-for-writing-LaTeX-outside-of-LaTeX)
+- [Template for poster](#Template-for-poster)
 
 ## Template for slides with beamer
 
@@ -55,7 +56,7 @@ This template contains the logo of my university, allows to include titles for e
 
 ### Install
 
-You just need the `TD.sty` file, together with `colors.sty`.
+You just need the `TD.sty` file, together with `colors.sty`. You'll need to modify `TD.sty` to tell it where is `color.sty` and where is the logo you wanna use.
 
 ### Usage
 
@@ -91,4 +92,24 @@ The script `latex_macro.ahk` contains a bunch of basic macros such as "if I type
 - brackets with autocompletion, e.g. `\left(  \right)`
 - Comment/Uncomment many selected lines at once with Alt+T / Alt+U (to mimic Texmaker functionality in Overleaf for instance)
 - Replace `F1` with `Ctrl+Enter` to compile in Texmaker (to mimic Overleaf)
+
+## Template for poster
+
+### Overview
+
+| ![](assets/poster/poster.jpg) |
+| ----------------------------- |
+
+I adapted a template from Inria by making it more colorful.
+
+### Install 
+
+Use `colorposter.sty`. You can see the code of the above poster in `assets/poster/poster.tex`.
+
+### Usage
+
+I have a couple customs commands to make life easier
+
+- A ``begin{colorblock}[backgroundcolor=.]` environment for the big colored blocks
+- A ``begin{colorframe}[backgroundcolor=.,linecolor=.]` environment for the frames with border and possibliy different background
 
