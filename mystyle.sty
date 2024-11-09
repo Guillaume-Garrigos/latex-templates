@@ -40,6 +40,7 @@
 %\newcommand{\C}{\mathbb{C}}
 \newcommand{\B}{\mathbb{B}}
 \newcommand{\Rbar}{\overline{\mathbb{R}}}
+\newcommand{\RI}{\overline{\mathbb{R}}}
 
 %%%%% Letters : mathCAL
 \newcommand{\Aa}{\mathcal{A}}
@@ -152,9 +153,13 @@
 \DeclareMathOperator{\proj}{proj}
 \DeclareMathOperator{\refl}{refl}
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\SGN}{SGN}
 \DeclareMathOperator{\soft}{soft}
 \DeclareMathOperator{\Soft}{Soft}
 %\DeclareMathOperator{\sp}{sp}
+% do not redefine \span! it is already a tex command needed for equations for instance!
+% https://tex.stackexchange.com/questions/33264
+\DeclareMathOperator{\vspan}{span}
 \DeclareMathOperator{\spec}{spec}
 \DeclareMathOperator{\supp}{supp}
 	\DeclareMathOperator{\esupp}{esupp}

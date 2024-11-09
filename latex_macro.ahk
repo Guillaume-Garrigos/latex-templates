@@ -58,33 +58,33 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :o:\langle::\langle • \rangle •{Left 10}+{Left} ; \langle • \rangle •
 :o:\prod::\prod_{{}•{}}{^}{{}•{}}{Left 5}+{Left} ; \prod_{•}^{•}
 :o:\sqrt::\sqrt{{}•{}}{Left}+{Left} ; \sqrt{•}•
-:o:\sum::\sum_{{}•{}}{^}{{}•{}}{Left 5}+{Left} ; \sum_{•}^{•}
+;:o:\sum::\sum_{{}•{}}{^}{{}•{}}{Left 5}+{Left} ; \sum_{•}^{•}
 
 ; /// 4. CUSTOM MATH MACRO ///
 
 :oc:\Argmin::\underset{{}•{}}{{}\rm{{}argmin{}}{}}~{Space}•{Left 18}+{Left}
 :oc:\Min::\underset{{}•{}}{{}\rm{{}min{}}{}}~{Space}•{Left 15}+{Left}
 :o:\minimiser::\underset{{}•{}}{{}\rm{{}minimiser{}}{}}~{Space}•{Left 21}+{Left}
-:o:\prox::{{}\rm{{}prox{}}{}}_{{}•{}}{Left 1}+{Left}
+;:o:\prox::{{}\rm{{}prox{}}{}}_{{}•{}}{Left 1}+{Left}
 
 :o:\bd::{{}\rm{{}bd{}}{}}~{Space}
 :o:\argmin::{{}\rm{{}argmin{}}{}}~{Space}
 ;:o:\cl::{{}\rm{{}cl{}}{}}~{Space}
-:o:\co::{{}\rm{{}co{}}{}}~{Space}
+;:o:\co::{{}\rm{{}co{}}{}}~{Space}
 :o:\cond::{{}\rm{{}cond{}}{}}~{Space}
-:o:\cone::{{}\rm{{}cone{}}{}}~{Space}
+;:o:\cone::{{}\rm{{}cone{}}{}}~{Space}
 :o:\crit::{{}\rm{{}crit{}}{}}~{Space}
 :o:\diag::{{}\rm{{}diag{}}{}}~{Space}
 :o:\dist::{{}\rm{{}dist{}}{}}~{Space}
-:o:\epi::{{}\rm{{}epi{}}{}}~{Space}
+;:o:\epi::{{}\rm{{}epi{}}{}}~{Space}
 :o:\gph::{{}\rm{{}gph{}}{}}~{Space}
-:o:\Im::{{}\rm{{}Im{}}{}}~{Space}
-:o:\inte::{{}\rm{{}int{}}{}}~{Space}
-:o:\Ker::{{}\rm{{}Ker{}}{}}~{Space}
+;:o:\Im::{{}\rm{{}Im{}}{}}~{Space}
+;:o:\inte::{{}\rm{{}int{}}{}}~{Space}
+;:o:\Ker::{{}\rm{{}Ker{}}{}}~{Space}
 :o:\rank::{{}\rm{{}rank{}}{}}~{Space}
-:o:\proj::{{}\rm{{}proj{}}{}}~{Space}
+;:o:\proj::{{}\rm{{}proj{}}{}}~{Space}
 :o:\sp::{{}\rm{{}sp{}}{}}~{Space}
-:o:\span::{{}\rm{{}span{}}{}}~{Space}
+;:o:\span::{{}\rm{{}span{}}{}}~{Space}
 :o:\spec::{{}\rm{{}spec{}}{}}~{Space}
 :o:\tr::{{}\rm{{}tr{}}{}}~{Space}
 
@@ -118,7 +118,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :*:\pp::\pi
 :*:\thh::\theta
 :*:\rr::\rho
-:*:\ss::\sigma
+;:*:\ss::\sigma
 :*:\tt::\tau
 :*:\uu::\upsilon
 :*:\vv::\varphi
@@ -264,6 +264,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :*c:\TQ::\quad \text{{} tel que {}} \quad{Space}
 :*c:\cad::c'est-à-dire{Space}
 :*c:\Cad::C'est-à-dire{Space}
+:*c:\ssi::si et seulement si{Space}
 :?*:\.::$\cdot$
 :?*:\"::\eg{{}•{}}{Left 1}+{Left}
 ; `n means Enter see https://www.autohotkey.com/docs/v1/Hotstrings.htm

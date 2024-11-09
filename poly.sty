@@ -38,7 +38,7 @@
 
 % BASIC LANGUAGE AND FONTS
 \usepackage{amsfonts,amsmath,amssymb,amsthm}% amsthm in ntheorem
-\usepackage[french]{babel}
+%\usepackage[french]{babel} %why is this loaded twice?
 \usepackage[utf8]{inputenc}
 \usepackage{mathpazo} % Specific font
 
@@ -60,9 +60,10 @@
 \usepackage{float} % for [H] option
 \renewcommand{\qedsymbol}{\color{\@colorfirst}$\blacksquare$} % End of theorems
 \usepackage[normalem]{ulem} % barrer texte /!\ need [normalem] otherwise redefines \em to underline !!
-
-
-
+\usepackage[french]{cleveref} % for cref and Cref. Think about adding autocompletion in texmaker, see https://tex.stackexchange.com/questions/88726 
+% i should do it in a way that the langage is automatically detected
+% cref incompatible with ":" in the label ..... see https://tex.stackexchange.com/questions/83798 and https://tex.stackexchange.com/questions/36295
+% so far added code in document
 
 
 % LISTS
@@ -177,7 +178,7 @@
 \newif\ifperso
 \AtBeginDocument{
 \ifperso
-  \newcommand{\guillaume}[1]{{\color{orange}#1}}
+  \newcommand{\guillaume}[1]{{\color{orange}\textbf{Note:} #1}}
 \else
   \newcommand{\guillaume}[1]{}
 \fi

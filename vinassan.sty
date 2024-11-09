@@ -390,6 +390,7 @@
 % In beamer there are inconsistent vertical spaces when using {equation} so be replace them with gather
 % see https://tex.stackexchange.com/questions/615437/vertical-spacing-between-equation-and-itemize-environments/647807
 % no need for \makeatletter in .sty files
+% I had a bug once where equation was broken. It is because I had redefined "\span" which is used by asmmath https://tex.stackexchange.com/questions/33264
 
 % Need etoolbox package
 \pretocmd{\itemize}{\ifhmode\unvbox\voidb@x\fi}{}{}
