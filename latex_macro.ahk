@@ -265,6 +265,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 :*c:\cad::c'est-à-dire{Space}
 :*c:\Cad::C'est-à-dire{Space}
 :*c:\ssi::si et seulement si{Space}
+:*c:\iff::if and only if{Space}
 :?*:\.::$\cdot$
 :?*:\"::\eg{{}•{}}{Left 1}+{Left}
 ; `n means Enter see https://www.autohotkey.com/docs/v1/Hotstrings.htm

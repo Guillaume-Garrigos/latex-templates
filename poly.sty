@@ -58,7 +58,7 @@
 % OPTIONAL PACKAGES
 \usepackage{graphicx}
 \usepackage{float} % for [H] option
-\renewcommand{\qedsymbol}{\color{\@colorfirst}$\blacksquare$} % End of theorems
+\renewcommand{\qedsymbol}{{\color{\@colorfirst}$\blacksquare$}} % End of theorems
 \usepackage[normalem]{ulem} % barrer texte /!\ need [normalem] otherwise redefines \em to underline !!
 \usepackage[french]{cleveref} % for cref and Cref. Think about adding autocompletion in texmaker, see https://tex.stackexchange.com/questions/88726 
 % i should do it in a way that the langage is automatically detected
@@ -211,11 +211,10 @@
 
 
 % First some commands to harvest the data, with default values
-\newcommand{\@logo}{\load/UP_white} % default value
+\newcommand{\@logo}{} % default value
 \newcommand{\logo}[1]{\def\@logo{#1}}
 
-
-\newcommand{\@year}{2022-2023}
+\newcommand{\@year}{}
 \renewcommand{\year}[1]{\renewcommand{\@year}{#1}}
 
 \renewcommand{\@author}{Guillaume Garrigos}
@@ -232,6 +231,9 @@
 
 \renewcommand{\@title}{}
 \renewcommand{\title}[1]{\def\@title{#1}}
+
+\newcommand{\@FrontPageArtPath}{}
+\newcommand{\FrontPageArtPath}[1]{\def\@FrontPageArtPath{#1}}
 
 \newcommand{\mynewcommand}[3]{%
     \newcommand{#1}{%
@@ -257,26 +259,16 @@
 
 \vspace*{2.5cm}
 
-% The title, with logo. Both separated in minipages. Surrounded by rules.
+% The title, with logo. Both separated in minipages. Surrounded by rules. 
+% Put a logo or not depending if it was given
+% the "if" is a mess, for details check https://tex.stackexchange.com/questions/391735
+
+\expandafter\ifstrequal\expandafter{\@logo}{}{%
+	% No logo given, we just put the title
 
 \noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
 
 \vspace*{1em}
-
-%\begin{minipage}{0.1\textwidth}
-%\begin{center}
-%\includegraphics[width=\textwidth, left]{\@logo}
-%\end{center}
-%\end{minipage}
-%\begin{minipage}{0.9\textwidth}
-%\begin{center}
-%{\color{\@colorfirst}
-%\large \textsc{\textbf{\@course}}\\
-%\rule{2cm}{1pt} \vspace*{0.5em} \\
-%\textsc{\textbf{\@title}}
-%}
-%\end{center}
-%\end{minipage}
 
 \begin{center}
 {\color{\@colorfirst}
@@ -287,6 +279,32 @@
 \vspace*{0.25em}
 
 \noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+	}{%
+	% logo was given, we display it
+
+\noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+
+\vspace*{1em}
+
+\begin{minipage}{0.15\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth, left]{\@logo}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.85\textwidth}
+\begin{center}
+{\color{\@colorfirst}
+\Huge {\textbf{\@course}}
+}
+\end{center}
+\end{minipage}
+
+\vspace*{1em}
+
+\noindent {\color{\@colorfirst}\rule{\textwidth}{2pt}}
+	}% endif
+
+% The author name
 
 \vspace*{3em}
 
@@ -296,9 +314,14 @@
 
 \vspace*{2em}
 
-\begin{center}
-\includegraphics[width=0.75\textwidth]{images/denoising.png}
-\end{center}
+% eventually shows a picture
+\expandafter\ifstrequal\expandafter{\@FrontPageArtPath}{}{%
+% empty parameter so do nothing
+	}{% nonempty parameter so print whatever is at this adress
+		\begin{center}
+		\includegraphics[width=0.75\textwidth]{\@FrontPageArtPath}
+		\end{center}
+	}
 
 %\begin{center}
 %\includegraphics[width=\textwidth]{images/titlepage.png}
